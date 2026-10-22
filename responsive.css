@@ -1,0 +1,29 @@
+/* Compact login; the approved artwork keeps its original proportions. */
+html,body{margin:0;min-width:0}
+#granada-results{padding:16px 12px;min-height:100vh}
+#granada-results .search-card,#granada-results .test-note{width:100%;max-width:520px}
+#granada-results .search-card{border-radius:20px}
+#granada-results .search-body{padding:20px 24px 24px}
+#granada-results label{font-size:17px;line-height:1.5;margin-bottom:8px}
+#granada-results input{height:48px;font-size:19px;border-radius:9px;min-width:0}
+#granada-results label[for="gr-phone"]{margin-top:16px!important}
+#granada-results .search-body p[style]{font-size:13px!important;line-height:1.6;margin-top:12px!important}
+#granada-results .search-btn{margin-top:18px;padding:9px 14px;min-height:46px;font-size:21px;border-radius:9px}
+#granada-results .message{font-size:14px;margin-top:12px}
+#granada-results .report{max-width:760px;width:100%;padding:24px;overflow-wrap:anywhere}
+#granada-results .student-item,#granada-results .grade{min-width:0}
+@media(max-width:600px){
+ #granada-results{padding:10px 10px}
+ #granada-results .search-card{max-width:420px;border-radius:16px}
+ #granada-results .search-body{padding:18px 18px 20px}
+ #granada-results label{font-size:16px}
+ #granada-results input{height:46px;font-size:18px}
+ #granada-results .search-btn{font-size:20px}
+ #granada-results .report{padding:18px 12px}
+ #granada-results .report-header{grid-template-columns:minmax(0,1fr) 70px minmax(0,1fr);font-size:10px}
+ #granada-results .vision{max-width:65px}
+ #granada-results .grades{gap:8px}
+ #granada-results .grade-value{font-size:17px}
+}
+@media(max-width:360px){#granada-results .search-body{padding:16px 14px}#granada-results .grades{grid-template-columns:1fr}}
+@media print{#granada-results{padding:0;min-height:0}#granada-results .report{max-width:none;padding:0}}
