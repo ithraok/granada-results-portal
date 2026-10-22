@@ -14,7 +14,6 @@ function renderPeriod(period){
  root.querySelector('.period-tabs').hidden=year;
  tabs.forEach(tab=>{const active=tab.dataset.periodTab===period;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});
  find('gr-grades').setAttribute('aria-labelledby',year?'period-heading':'gr-period-'+period);
- find('gr-term-label').textContent=year?'العام الدراسي':term==='2'?'الفصل الدراسي الثاني':'الفصل الدراسي الأول';
  find('period-heading').textContent=view.title;find('period-status').textContent=view.status;
  find('gr-grades').replaceChildren(...view.scores.map((score,index)=>card(view.showNotes&&index>=10?[...score,'source-text']:score)));
  notes.forEach(note=>note.hidden=!view.showNotes);
