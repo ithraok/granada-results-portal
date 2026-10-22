@@ -26,4 +26,29 @@ html,body{margin:0;min-width:0}
  #granada-results .grade-value{font-size:17px}
 }
 @media(max-width:360px){#granada-results .search-body{padding:16px 14px}#granada-results .grades{grid-template-columns:1fr}}
+#granada-results .vision{background:transparent;border-radius:0;padding:0;object-fit:contain}
 @media print{#granada-results{padding:0;min-height:0}#granada-results .report{max-width:none;padding:0}}
+
+#granada-results .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 16px}
+#granada-results .period-tabs button{--tab-color:#185ab8;--tab-soft:#edf4ff;--tab-border:#b9d2f4;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;padding:16px 6px;border-radius:13px;border:1px solid var(--tab-border);border-top:4px solid var(--tab-color);background:var(--tab-soft);color:var(--tab-color);transition:background .15s,box-shadow .15s}
+#granada-results .period-tabs button[data-period="2"]{--tab-color:#087b60;--tab-soft:#edf9f3;--tab-border:#a9dac9}
+#granada-results .period-tabs button[data-period="final"]{--tab-color:#7043a3;--tab-soft:#f5f0fc;--tab-border:#d4bde9}
+#granada-results .period-tabs button[aria-selected="true"]{background:var(--tab-color);color:white;border-color:var(--tab-color);box-shadow:0 4px 10px #18345222}
+#granada-results .period-tabs button:focus-visible{outline:3px solid #e3a315;outline-offset:3px}
+#granada-results .period-tabs button:hover{box-shadow:0 3px 8px #18345220}
+#granada-results .report-demo{font-family:Tajawal,Tahoma,Arial,sans-serif;font-size:clamp(24px,3vw,26px);font-weight:800;line-height:1.6;letter-spacing:0;text-align:center;color:#123f7c;background:transparent;border:0;border-radius:0;padding:6px 0;margin:10px 0 14px;box-shadow:none}
+#granada-results .period-status{padding:8px 12px;border-radius:8px;background:#eff5ff;color:#315a8f;margin-bottom:15px;font-size:14px}
+#granada-results .final-calculation{background:#eff6ff;border:1px solid #bfd4f1;border-radius:12px;padding:16px;margin-top:15px}
+#granada-results .final-calculation p{margin:8px 0}
+#granada-results .calculation-title{display:block;color:#123f7c;font-size:18px;margin-bottom:14px}
+#granada-results .calculation-step{background:#fff;border:1px solid #d9e5f3;border-radius:10px;padding:12px 14px;margin:10px 0}
+#granada-results .calculation-step strong{color:#173f73}
+#granada-results .calculation-formula{display:block;text-align:center;font-weight:700;color:#17477f;margin:10px 0 2px;line-height:1.9}
+#granada-results .calculation-official{border:1px solid #e7bcc8;border-right:4px solid #8a2043;border-radius:10px;background:#fff2f5;padding:13px 15px;margin-top:16px!important;color:#8a2043;font-size:clamp(8px,2vw,17px);font-weight:700;line-height:1.9;text-align:center;white-space:nowrap}
+@media(max-width:600px){#granada-results .period-tabs button{font-size:12px;padding:12px 3px}}
+
+#granada-results[data-period="2"] .period-status{color:#087b60;background:#edf9f3}
+#granada-results[data-period="final"] .period-status{color:#7043a3;background:#f5f0fc}
+#granada-results[data-period="2"] #period-heading{border-color:#087b60}
+#granada-results[data-period="final"] #period-heading{border-color:#7043a3}
+
