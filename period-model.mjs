@@ -31,8 +31,9 @@ export function annualView(data){
  const ready=first.ready&&second.ready,total=ready?(first.total+second.total)/2:null;
  const rows=[];
  for(const term of ['1','2']){const semester=semesterData(data,term),name=termName(term);for(const period of ['1','2'])rows.push(['الفصل الدراسي '+name+' — الفترة '+(period==='1'?'الأولى':'الثانية'),semester?.periods?.[period]?.scores?.[1]?.[1]??null]);const totals=term==='1'?first:second;rows.push(['نهاية الفصل الدراسي '+name,totals.ready?totals.total:null]);}
- return {period:'final',term:'year',title:'📊 النتيجة التقديرية النهائية للعام الدراسي',status:ready?'متوسط نتيجتي الفصلين الدراسيين من 100':'بانتظار اكتمال الفترات في الفصلين الدراسيين',showNotes:false,showCalculation:true,showAnnual:true,rows,scores:[
+ const components=[['ملخص المهام الأدائية من 40',first.ready&&second.ready?(first.tasks+second.tasks)/2:'بانتظار اكتمال الفصلين','green','🌟'],['ملخص الاختبارات التحريرية والإلكترونية والتطبيقات والمشروعات العملية من 60',first.ready&&second.ready?(first.assessments+second.assessments)/2:'بانتظار اكتمال الفصلين','blue','📘']];
+ return {period:'final',term:'year',title:'📊 النتيجة النهائية للعام الدراسي',status:ready?'متوسط نتيجتي الفصلين الدراسيين من 100':'بانتظار اكتمال الفترات في الفصلين الدراسيين',showNotes:false,showCalculation:true,showAnnual:true,rows,components,scores:[
  ['نتيجة الفصل الدراسي الأول من 100',first.ready?first.total:'لم تكتمل بعد','blue','📘'],
  ['نتيجة الفصل الدراسي الثاني من 100',second.ready?second.total:'لم تكتمل بعد','green','🌟'],
- ['النتيجة التقديرية النهائية للعام الدراسي من 100',ready?total:'بانتظار اكتمال الفصلين','','']]};
+ ['النتيجة النهائية للعام الدراسي من 100',ready?total:'بانتظار اكتمال الفصلين','','']]};
 }
