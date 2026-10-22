@@ -18,7 +18,7 @@ function renderPeriod(period){
  find('period-heading').textContent=view.title;find('period-status').textContent=view.status;
  find('gr-grades').replaceChildren(...view.scores.map((score,index)=>card(view.showNotes&&index>=10?[...score,'source-text']:score)));
  notes.forEach(note=>note.hidden=!view.showNotes);
- if(view.showNotes){notes[0].querySelector('p').textContent=view.homework;notes[1].querySelector('p').textContent=view.notes;}
+ if(view.showNotes){notes[0].querySelector('p').textContent=view.homework;notes[1].querySelector('p').textContent=view.teacherRecommendation;}
  find('final-calculation').hidden=!view.showCalculation;find('semester-calculation').hidden=year;find('annual-calculation').hidden=!year;
  find('annual-components').replaceChildren(...(view.components||[]).map(card));find('annual-breakdown').hidden=!view.showAnnual;find('annual-rows').replaceChildren();
  if(view.showAnnual)for(const [label,value]of view.rows){const row=document.createElement('tr'),name=document.createElement('td'),score=document.createElement('td');name.textContent=label;score.textContent=value===null?'لم يُرصد':typeof value==='number'?String(Math.round(value)):String(value);row.append(name,score);find('annual-rows').append(row);}
