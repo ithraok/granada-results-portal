@@ -68,6 +68,17 @@ html,body{margin:0;min-width:0}
 #granada-results .student-meta{color:#234b78;font-weight:600}
 #granada-results .student-meta b{color:#173652;font-weight:700}
 
+/* Stronger semester choice and current-period context. */
+#granada-results .term-choice select{font-weight:700;font-size:16px;line-height:1.6}
+#granada-results .term-choice option{font-weight:700}
+#granada-results[data-term="1"] .term-choice select{color:#174b95}
+#granada-results[data-term="2"] .term-choice select{color:#06694f}
+#granada-results[data-term="year"] .term-choice select{color:#63348e}
+#granada-results .period-status{font-size:15px;font-weight:700;line-height:1.8}
+#granada-results[data-period="1"] .period-status{color:#174b95;background:#edf4ff}
+#granada-results[data-period="2"] .period-status{color:#06694f;background:#edf9f3}
+#granada-results[data-period="final"] .period-status{color:#63348e;background:#f5f0fc}
+@media(max-width:600px){#granada-results .term-choice select{font-size:15px}#granada-results .period-status{font-size:14px}}
 
 #granada-results .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 16px}
 #granada-results .period-tabs button{--tab-color:#185ab8;--tab-soft:#edf4ff;--tab-border:#b9d2f4;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;padding:16px 6px;border-radius:13px;border:1px solid var(--tab-border);border-top:4px solid var(--tab-color);background:var(--tab-soft);color:var(--tab-color);transition:background .15s,box-shadow .15s}
