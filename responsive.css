@@ -63,6 +63,11 @@ html,body{margin:0;min-width:0}
 #granada-results .grade.source-text .grade-value{margin:10px 0 0;min-height:1.85em}
 #granada-results .grade.source-text h3{font-size:13px;line-height:1.7}
 @media(max-width:600px){#granada-results .grade.source-text .grade-value,#granada-results .note p{font-size:14px}}
+/* Clear, balanced student metadata labels on the shared report. */
+#granada-results .student-item .small-label{color:#234b78;font-weight:700;font-size:13px;line-height:1.7}
+#granada-results .student-meta{color:#234b78;font-weight:600}
+#granada-results .student-meta b{color:#173652;font-weight:700}
+
 
 #granada-results .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 16px}
 #granada-results .period-tabs button{--tab-color:#185ab8;--tab-soft:#edf4ff;--tab-border:#b9d2f4;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;padding:16px 6px;border-radius:13px;border:1px solid var(--tab-border);border-top:4px solid var(--tab-color);background:var(--tab-soft);color:var(--tab-color);transition:background .15s,box-shadow .15s}
