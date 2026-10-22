@@ -1,31 +1,38 @@
-// Presentation only: preserve period 1; never count placeholder zeros as period 2 results.
-export function periodView(data, period = '1') {
-  if (!['1', '2', 'final'].includes(period)) throw new Error('INVALID_PERIOD');
-  const demoSecond = data.demo === true ? data.periods?.['2'] : null;
-  const ready = demoSecond && [2,3].every((i)=>[data.scores[i]?.[1],demoSecond.scores[i]?.[1]].every(v=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=(i===2?40:60)));
-  const tasks = ready ? (data.scores[2][1]+demoSecond.scores[2][1])/2 : null;
-  const assessments = ready ? (data.scores[3][1]+demoSecond.scores[3][1])/2 : null;
-  if (period === 'final') return {
-    period, title: '📊 التقدير التقريبي للفصل الدراسي الأول',
-    status: 'احتساب تقديري غير رسمي — النتيجة الرسمية هي المعتمدة في نظام نور',
-    showNotes: false, showCalculation: true,
-    scores: [
-      ['المتوسط التقديري للمهام الأدائية للفترتين من 40', ready?tasks:'بانتظار اكتمال الفترتين', 'green', '🌟'],
-      ['المتوسط التقديري للاختبارات والتطبيقات والمشروعات العملية للفترتين من 60', ready?assessments:'بانتظار اكتمال الفترتين', 'blue', '📘'],
-      ['المجموع التقديري التقريبي للفصل من 100', ready?tasks+assessments:'بانتظار اكتمال الفترتين', '', '']
-    ]
-  };
-  const second = period === '2';
-  return {
-    period, title: '📊 تفاصيل الأداء والدرجات — الفترة ' + (second ? 'الثانية' : 'الأولى'),
-    status: second ? (demoSecond?'الفترة الثانية — درجات وهمية للشرح والتجربة':'لم يبدأ الرصد — الأصفار للعرض، وليست درجات نهائية مرصودة') : 'درجات الفترة الأولى',
-    showNotes: true, showCalculation: false,
-    scores: (second&&demoSecond?demoSecond.scores:data.scores).map(([label, value, tone, icon], index) => [
-      second ? label.replaceAll('الفترة الأولى', 'الفترة الثانية') : label,
-      second&&!demoSecond ? (index === 0 ? 'لم يبدأ الرصد' : index >= 10 ? 'لم تُسجل ملاحظات لهذه الفترة' : 0) : value,
-      tone, icon
-    ]),
-    homework: second ? (demoSecond?.homework||'لم تُسجل واجبات للفترة الثانية بعد.') : data.homework || 'لا توجد واجبات مسجلة حاليًا',
-    notes: second ? (demoSecond?.notes||'لم تُسجل توصيات للفترة الثانية بعد.') : data.notes || 'لا توجد ملاحظات'
-  };
+// Preserve saved period scores. Pending periods never enter semester/year averages.
+const termName=term=>term==='2'?'الثاني':'الأول';
+function semesterData(data,term){
+ if(!['1','2'].includes(term))throw Error('INVALID_TERM');
+ if(data.demo===true&&data.terms?.[term])return data.terms[term];
+ const sourceTerm=data.academicTerm==='الثاني'?'2':'1';
+ if(term!==sourceTerm)return null;
+ return {periods:{'1':data,...(data.demo===true&&data.periods?.['2']?{'2':data.periods['2']}:{})}};
+}
+export function semesterTotals(data,term='1'){
+ const source=semesterData(data,term),first=source?.periods?.['1'],second=source?.periods?.['2'];
+ const ready=Boolean(first&&second&&[2,3].every(i=>[first.scores?.[i]?.[1],second.scores?.[i]?.[1]].every(v=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=(i===2?40:60))));
+ if(!ready)return {ready:false,tasks:null,assessments:null,total:null};
+ const tasks=(first.scores[2][1]+second.scores[2][1])/2,assessments=(first.scores[3][1]+second.scores[3][1])/2;
+ return {ready:true,tasks,assessments,total:tasks+assessments};
+}
+export function periodView(data,period='1',term='1'){
+ if(!['1','2','final'].includes(period))throw Error('INVALID_PERIOD');
+ const semester=semesterData(data,term),totals=semesterTotals(data,term),name=termName(term);
+ if(period==='final')return {period,term,title:'📊 التقدير التقريبي لنهاية الفصل الدراسي '+name,status:'احتساب تقديري غير رسمي — النتيجة الرسمية هي المعتمدة في نظام نور',showNotes:false,showCalculation:true,showAnnual:false,scores:[
+ ['المتوسط التقديري للمهام الأدائية للفترتين من 40',totals.ready?totals.tasks:'بانتظار اكتمال الفترتين','green','🌟'],
+ ['المتوسط التقديري للاختبارات والتطبيقات والمشروعات العملية للفترتين من 60',totals.ready?totals.assessments:'بانتظار اكتمال الفترتين','blue','📘'],
+ ['المجموع التقديري لنهاية الفصل الدراسي '+name+' من 100',totals.ready?totals.total:'بانتظار اكتمال الفترتين','','']]};
+ const source=semester?.periods?.[period],second=period==='2',word=second?'الثانية':'الأولى';
+ return {period,term,title:'📊 تفاصيل الأداء والدرجات — الفصل الدراسي '+name+' — الفترة '+word,status:source?'الفصل الدراسي '+name+' — الفترة '+word:'لم يبدأ الرصد — الأصفار للعرض، وليست درجات نهائية مرصودة',showNotes:true,showCalculation:false,showAnnual:false,
+ scores:(source?.scores||data.scores).map(([label,value,tone,icon],index)=>[label.replace(/الفترة (الأولى|الثانية)/g,'الفترة '+word),source?value:index===0?'لم يبدأ الرصد':index>=10?'لم تُسجل ملاحظات لهذه الفترة':0,tone,icon]),
+ homework:source?(source.homework||'لا توجد واجبات مسجلة حاليًا'):'لم تُسجل واجبات لهذه الفترة بعد.',notes:source?(source.notes||'لا توجد ملاحظات'):'لم تُسجل توصيات لهذه الفترة بعد.'};
+}
+export function annualView(data){
+ const first=semesterTotals(data,'1'),second=semesterTotals(data,'2');
+ const ready=first.ready&&second.ready,total=ready?(first.total+second.total)/2:null;
+ const rows=[];
+ for(const term of ['1','2']){const semester=semesterData(data,term),name=termName(term);for(const period of ['1','2'])rows.push(['الفصل الدراسي '+name+' — الفترة '+(period==='1'?'الأولى':'الثانية'),semester?.periods?.[period]?.scores?.[1]?.[1]??null]);const totals=term==='1'?first:second;rows.push(['نهاية الفصل الدراسي '+name,totals.ready?totals.total:null]);}
+ return {period:'final',term:'year',title:'📊 النتيجة التقديرية النهائية للعام الدراسي',status:ready?'متوسط نتيجتي الفصلين الدراسيين من 100':'بانتظار اكتمال الفترات في الفصلين الدراسيين',showNotes:false,showCalculation:true,showAnnual:true,rows,scores:[
+ ['نتيجة الفصل الدراسي الأول من 100',first.ready?first.total:'لم تكتمل بعد','blue','📘'],
+ ['نتيجة الفصل الدراسي الثاني من 100',second.ready?second.total:'لم تكتمل بعد','green','🌟'],
+ ['النتيجة التقديرية النهائية للعام الدراسي من 100',ready?total:'بانتظار اكتمال الفصلين','','']]};
 }

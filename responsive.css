@@ -27,6 +27,16 @@ html,body{margin:0;min-width:0}
 }
 @media(max-width:360px){#granada-results .search-body{padding:16px 14px}#granada-results .grades{grid-template-columns:1fr}}
 #granada-results .vision{background:transparent;border-radius:0;padding:0;object-fit:contain}
+#granada-results .term-choice{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#f0f5fd;border:1px solid #cbdcf2;border-radius:12px;padding:12px 14px;margin:20px 0 14px}
+#granada-results .term-choice label{font-size:15px;font-weight:700;margin:0;color:#164776}
+#granada-results .term-choice select{font:inherit;font-size:15px;max-width:100%;flex:1;min-width:180px;color:#164776;background:white;border:1px solid #afcaed;border-radius:8px;padding:9px 10px}
+#granada-results .annual-breakdown{margin:18px 0}
+#granada-results .annual-breakdown h3{font-size:16px;color:#164776;margin:12px 0}
+#granada-results .summary-scroll{overflow-x:auto;border:1px solid #cbdcf2;border-radius:12px}
+#granada-results .summary-scroll table{width:100%;border-collapse:collapse;font-size:14px;text-align:right}
+#granada-results .summary-scroll th{background:#eff5fd;color:#164776;padding:12px}
+#granada-results .summary-scroll td{padding:11px 12px;border-top:1px solid #e1eaf6}
+#granada-results .summary-scroll td:last-child{font-weight:700;text-align:center;white-space:nowrap}
 /* Explicit tab colors also protect against older generic blue button styles. */
 #granada-results #gr-period-1{color:#185ab8;background:#edf4ff;border-color:#b9d2f4;border-top-color:#185ab8}
 #granada-results #gr-period-2{color:#087b60;background:#edf9f3;border-color:#a9dac9;border-top-color:#087b60}
