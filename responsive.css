@@ -79,6 +79,8 @@ html,body{margin:0;min-width:0}
 #granada-results[data-period="2"] .period-status{color:#06694f;background:#edf9f3}
 #granada-results[data-period="final"] .period-status{color:#63348e;background:#f5f0fc}
 @media(max-width:600px){#granada-results .term-choice select{font-size:15px}#granada-results .period-status{font-size:14px}}
+#granada-results .report .print-date{font-family:inherit;font-size:12px;font-weight:700;line-height:1.7;color:#111;opacity:1}
+#granada-results .report .print-date span{color:inherit;font-weight:inherit}
 
 #granada-results .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 16px}
 #granada-results .period-tabs button{--tab-color:#185ab8;--tab-soft:#edf4ff;--tab-border:#b9d2f4;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;padding:16px 6px;border-radius:13px;border:1px solid var(--tab-border);border-top:4px solid var(--tab-color);background:var(--tab-soft);color:var(--tab-color);transition:background .15s,box-shadow .15s}
