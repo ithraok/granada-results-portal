@@ -58,6 +58,12 @@ html,body{margin:0;min-width:0}
 #granada-results #annual-components .grade-value{font-size:24px;color:#183452}
 @media(max-width:520px){#granada-results #annual-components{grid-template-columns:1fr}}
 
+/* Workbook narrative cells are literal text, including intentional blank cells. */
+#granada-results .grade.source-text .grade-value,#granada-results .note p{font-size:15px;font-weight:500;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;text-align:right;letter-spacing:0}
+#granada-results .grade.source-text .grade-value{margin:10px 0 0;min-height:1.85em}
+#granada-results .grade.source-text h3{font-size:13px;line-height:1.7}
+@media(max-width:600px){#granada-results .grade.source-text .grade-value,#granada-results .note p{font-size:14px}}
+
 #granada-results .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 16px}
 #granada-results .period-tabs button{--tab-color:#185ab8;--tab-soft:#edf4ff;--tab-border:#b9d2f4;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;padding:16px 6px;border-radius:13px;border:1px solid var(--tab-border);border-top:4px solid var(--tab-color);background:var(--tab-soft);color:var(--tab-color);transition:background .15s,box-shadow .15s}
 #granada-results .period-tabs button[data-period-tab="2"]{--tab-color:#087b60;--tab-soft:#edf9f3;--tab-border:#a9dac9}

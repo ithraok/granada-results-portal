@@ -6,7 +6,7 @@ const notes=[...root.querySelectorAll('.note')],tabs=[...root.querySelectorAll('
 const messages={TRY_LATER:'تجاوزت عدد المحاولات. انتظر 15 دقيقة ثم حاول مجددًا.',SERVICE_NOT_READY:'الخدمة قيد التجهيز. حاول لاحقًا.',NO_MATCH:'تعذر مطابقة البيانات. تحقق من الهوية وجوال ولي الأمر المسجل لدى المدرسة.'};
 async function api(path,body){const res=await fetch('/api/guardian/'+path,{method:body===undefined?'GET':'POST',headers:body===undefined?{}:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),credentials:'same-origin',cache:'no-store'});const data=await res.json();if(!res.ok)throw new Error(messages[data.error]||'انتهت الجلسة أو تعذر الاتصال. أعد البحث.');return data;}
 const englishDigits=s=>String(s).replace(/[٠-٩۰-۹]/g,c=>String(c.charCodeAt(0)-(c.charCodeAt(0)<=0x669?0x660:0x6f0)));
-function card([label,value,tone,icon]){const section=document.createElement('section');section.className='grade '+tone;const title=document.createElement('h3'),text=document.createElement('span'),symbol=document.createElement('span');text.textContent=englishDigits(label);symbol.textContent=icon;symbol.setAttribute('aria-hidden','true');title.append(text,symbol);const val=document.createElement('p');val.className='grade-value';val.dataset.numeric=String(typeof value==='number'&&Number.isFinite(value));val.textContent=(value===null||value===undefined||value==='')?'لم يُرصد':((typeof value==='number'||(typeof value==='string'&&/^\s*\d+(?:\.\d+)?\s*$/.test(value)))&&Number.isFinite(Number(value))?String(Math.round(Number(value))):String(value));section.append(title,val);return section;}
+function card([label,value,tone,icon,kind]){const section=document.createElement('section');section.className='grade '+tone+(kind==='source-text'?' source-text':'');const title=document.createElement('h3'),text=document.createElement('span'),symbol=document.createElement('span');text.textContent=englishDigits(label);symbol.textContent=icon;symbol.setAttribute('aria-hidden','true');title.append(text,symbol);const val=document.createElement('p');val.className='grade-value';val.dataset.numeric=String(typeof value==='number'&&Number.isFinite(value));val.textContent=kind==='source-text'?String(value??''):(value===null||value===undefined||value==='')?'لم يُرصد':((typeof value==='number'||(typeof value==='string'&&/^\s*\d+(?:\.\d+)?\s*$/.test(value)))&&Number.isFinite(Number(value))?String(Math.round(Number(value))):String(value));section.append(title,val);return section;}
 function renderPeriod(period){
  if(!currentReport)return;
  const term=find('gr-term').value,year=term==='year',view=year?annualView(currentReport):periodView(currentReport,period,term);
@@ -16,7 +16,7 @@ function renderPeriod(period){
  find('gr-grades').setAttribute('aria-labelledby',year?'period-heading':'gr-period-'+period);
  find('gr-term-label').textContent=year?'العام الدراسي':term==='2'?'الفصل الدراسي الثاني':'الفصل الدراسي الأول';
  find('period-heading').textContent=view.title;find('period-status').textContent=view.status;
- find('gr-grades').replaceChildren(...view.scores.map(card));
+ find('gr-grades').replaceChildren(...view.scores.map((score,index)=>card(view.showNotes&&index>=10?[...score,'source-text']:score)));
  notes.forEach(note=>note.hidden=!view.showNotes);
  if(view.showNotes){notes[0].querySelector('p').textContent=view.homework;notes[1].querySelector('p').textContent=view.notes;}
  find('final-calculation').hidden=!view.showCalculation;find('semester-calculation').hidden=year;find('annual-calculation').hidden=!year;
