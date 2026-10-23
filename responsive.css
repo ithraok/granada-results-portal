@@ -185,6 +185,12 @@ html,body{margin:0;min-width:0}
  #granada-results .period-status{font-size:11px;margin-bottom:10px}
 }
 
+/* Approved footer: uniform bold black first line, blue contact line. */
+#granada-results .report .initiative-footer .initiative-line{font-size:12px;font-weight:700;color:#111111;white-space:normal}
+#granada-results .report .initiative-footer strong{font-weight:700;color:inherit}
+#granada-results .report .initiative-footer .initiative-contact{font-size:13px;font-weight:700;color:#17549a}
+#granada-results .report .initiative-footer .initiative-contact a{color:#17549a;font-weight:700}
+
 #granada-results .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 16px}
 #granada-results .period-tabs button{--tab-color:#185ab8;--tab-soft:#edf4ff;--tab-border:#b9d2f4;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;padding:16px 6px;border-radius:13px;border:1px solid var(--tab-border);border-top:4px solid var(--tab-color);background:var(--tab-soft);color:var(--tab-color);transition:background .15s,box-shadow .15s}
 #granada-results .period-tabs button[data-period-tab="2"]{--tab-color:#087b60;--tab-soft:#edf9f3;--tab-border:#a9dac9}
