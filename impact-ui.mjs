@@ -20,7 +20,7 @@ export function mountImpact({root,report,load,onSessionError}){
  const entry=el('button','◈ تتبّع الأثر','impact-entry');entry.type='button';entry.id='gr-impact';report.querySelector('.actions').append(entry);
  const panel=el('section',undefined,'impact-panel');panel.hidden=true;panel.setAttribute('aria-label','تتبّع الأثر — عرض المعلم التجريبي');root.append(panel);
  let data=null,disposed=false,view='overview',term='1',period='1',scope='all',metricKey='score',requestNumber=0;
- const sections=[['overview','الإحصائية العامة'],['classes','مقارنة الفصول'],['top','العشرة الأوائل'],['support','أولوية الدعم'],['grades','مقارنة الصفوف'],['training','قياس الأثر'],['recommendations','ملخص التوصيات']];
+ const sections=[['overview','الإحصائية العامة'],['students','تقارير الطلاب'],['classes','مقارنة الفصول'],['top','العشرة الأوائل'],['support','أولوية الدعم'],['grades','مقارنة الصفوف'],['training','قياس الأثر'],['recommendations','ملخص التوصيات']];
  const back=()=>{panel.hidden=true;report.hidden=false;entry.focus();};
  function render(){
   panel.replaceChildren();const actions=el('div',undefined,'impact-actions');const close=el('button','العودة إلى التقرير'),print=el('button','طباعة الملخص');close.type=print.type='button';close.addEventListener('click',back);print.addEventListener('click',()=>window.print());actions.append(close,print);panel.append(actions);
@@ -36,12 +36,21 @@ export function mountImpact({root,report,load,onSessionError}){
   const nav=el('nav',undefined,'impact-nav');nav.setAttribute('aria-label','تقارير تتبع الأثر');for(const [key,label]of sections){const b=el('button',label);b.type='button';b.setAttribute('aria-pressed',String(view===key));b.addEventListener('click',()=>{view=key;render();panel.querySelector('.impact-content h3')?.focus();});nav.append(b);}panel.append(nav);
   const content=el('div',undefined,'impact-content'),h=el('h3',sections.find(s=>s[0]===view)[1]);h.tabIndex=-1;content.append(h);panel.append(content);
   const rows=impactRows(data.students,term,period,scope,metricKey),summary=summarize(rows,metricKey),selected=impactMetrics[metricKey];
+  if(summary.recorded===0){
+   content.append(el('p','لم يبدأ الرصد — لا توجد تقارير أو مستويات أو ترتيب لهذه الفترة حتى الآن.','impact-explanation'));
+   const placeholders=el('div',undefined,'impact-metrics');placeholders.append(metric('نتائج مرصودة',0),metric('درجة40 — عرض فقط',0),metric('درجة60 — عرض فقط',0),metric('المجموع /100 — عرض فقط',0));content.append(placeholders);
+   content.append(el('p','الأصفار للعرض فقط، ولا تمثل درجات الطلاب ولا تدخل في المتوسط. تظهر نتائج نهاية الفصل والعام بعد اكتمال رصد الفترات اللازمة.','impact-method'));
+   return;
+  }
   const sorted=ranking(rows,false,metricKey),classGroups=groups(rows,'class',metricKey),gradeGroups=groups(rows,'grade',metricKey);const scoreCells=r=>[number(r.tasks),number(r.assessment),number(r.score),rating(r.score)];const comparisonTitle=term==='year'?'تغير الفصلين':'تغير الفترتين';const comparisonChart=(title,rows)=>chart(title,rows,`${selected.label} — من ${selected.max}`,selected.max);
   const appendRank=(list,title,tone)=>{const section=el('section',undefined,'impact-ranking '+tone);section.append(el('h4',title),table(['الترتيب','الطالب','الصف / الفصل','درجة40','درجة60','المجموع /100','التقدير العام',comparisonTitle+' — '+selected.label,'التوصية المقترحة'],list.slice(0,10).map((r,i)=>[i+1,r.name,className(r),...scoreCells(r),movement(r.delta),recommendation(r)])));content.append(section);};
   const cards=el('div',undefined,'impact-metrics');cards.append(metric('الطلاب في النطاق',summary.registered),metric('لديهم نتيجة مرصودة',summary.recorded),metric('متوسط درجة40',summary.means.tasks),metric('متوسط درجة60',summary.means.assessment),metric('متوسط المجموع /100',summary.means.score),metric('ممتاز — 90 فأعلى',summary.excellent,'positive'),metric('أقل من 70 — يحتاج متابعة',summary.support,'support'),metric('نتائج غير مكتملة',summary.missing));
   if(view==='overview'){
    content.append(cards,comparisonChart('مقارنة متوسطات الفصول',classGroups.map(g=>({label:g.label,value:g.mean}))),comparisonChart('مقارنة متوسطات الصفوف',gradeGroups.map(g=>({label:g.label,value:g.mean}))));
    content.append(el('p',`أفضل فصل في النطاق بحسب متوسط الدرجات المرصودة: ${classGroups.find(g=>g.recorded)?.label||'غير متاح'}. عدد من لديهم نتيجتان للمقارنة: ${summary.paired}.`,'impact-explanation'));
+  }
+  if(view==='students'){
+   content.append(el('p','تقارير الطلاب للفترة المختارة، مرتبة بحسب مؤشر التتبع.','impact-explanation'),table(['الطالب','الصف / الفصل','درجة40','درجة60','المجموع /100','التقدير العام','التوصية المقترحة'],sorted.map(r=>[r.name,className(r),...scoreCells(r),recommendation(r)])));
   }
   if(view==='classes'||view==='grades'){
    const grouped=view==='classes'?classGroups:gradeGroups;
@@ -61,10 +70,14 @@ export function mountImpact({root,report,load,onSessionError}){
   if(view==='training'){
    const paired=rows.filter(r=>r.delta!==null),beforeLabel=term==='year'?'الفصل الدراسي الأول':'الفترة الأولى',afterLabel=term==='year'?'الفصل الدراسي الثاني':'الفترة الثانية';
    content.append(el('p',`تتبّع ${selected.label} من ${selected.max}: ${beforeLabel} ← ${afterLabel}. الدرجة40 والدرجة60 والمجموع النهائي محفوظة كلٌّ على حدة؛ لا تُستنتج درجة ناقصة من المجموع.`,'impact-explanation'));
-   const stats=el('div',undefined,'impact-metrics');stats.append(metric('بيانات مقارنة كافية',paired.length),metric('تحسن',summary.improved,'positive'),metric('تراجع',summary.declined,'support'),metric('ثبات',summary.stable),metric('متوسط التغير — من '+selected.max,summary.delta));content.append(stats);
-   const cats=['تحسن كبير','تحسن متوسط','تحسن بسيط','ثبات','تراجع بسيط','تراجع متوسط','تراجع كبير'];
-   content.append(chart('توزيع تغير المؤشر المختار',cats.map(label=>({label,value:paired.length?paired.filter(r=>changeBand(r.changePercent)===label).length/paired.length*100:null})),'نسبة الطلاب ذوي البيانات الكافية %'));
-   content.append(table(['الطالب','الفصل','درجة40','درجة60','المجموع /100','التقدير العام',beforeLabel+' — من'+selected.max,afterLabel+' — من'+selected.max,'التغير — من'+selected.max,'فئة التغير'],rows.map(r=>[r.name,className(r),...scoreCells(r),number(r.baseline[metricKey]),number(r.comparison[metricKey]),movement(r.delta),changeBand(r.changePercent)||'غير متاح'])));
+   const stats=el('div',undefined,'impact-metrics');stats.append(metric('بيانات مقارنة كافية',paired.length),metric('تحسن',summary.improved,'positive'),metric('تراجع',summary.declined,'support'),metric('ثبات',summary.stable),metric('متوسط التغير — من '+selected.max,summary.delta));content.append(paired.length?stats:cards);
+   if(paired.length){
+    const cats=['تحسن كبير','تحسن متوسط','تحسن بسيط','ثبات','تراجع بسيط','تراجع متوسط','تراجع كبير'];
+    content.append(chart('توزيع تغير المؤشر المختار',cats.map(label=>({label,value:paired.filter(r=>changeBand(r.changePercent)===label).length/paired.length*100})),'نسبة الطلاب ذوي البيانات الكافية %'));
+    content.append(table(['الطالب','الفصل','درجة40','درجة60','المجموع /100','التقدير العام',beforeLabel+' — من'+selected.max,afterLabel+' — من'+selected.max,'التغير — من'+selected.max,'فئة التغير'],rows.map(r=>[r.name,className(r),...scoreCells(r),number(r.baseline[metricKey]),number(r.comparison[metricKey]),movement(r.delta),changeBand(r.changePercent)||'غير متاح'])));
+   }else{
+    content.append(el('p','تعرض هذه الصفحة مستويات الفترة المرصودة فقط. ستظهر مقارنة التحسن والتراجع بعد رصد الفترة التالية؛ لا توجد حاليًا نتيجة لاحقة للمقارنة.','impact-explanation'),table(['الطالب','الفصل','درجة40','درجة60','المجموع /100','التقدير العام'],sorted.map(r=>[r.name,className(r),...scoreCells(r)])));
+   }
    content.append(table(['التقدير العام','عدد الطلاب'],['ممتاز','جيد جدًا','جيد','مقبول','راسب','غير متاح'].map(label=>[label,rows.filter(r=>rating(r.score)===label).length])));
    content.append(el('p','التغير = الدرجة اللاحقة − الدرجة السابقة للمؤشر نفسه. تُحدد فئة التغير بعد تحويله إلى نقاط مئوية بحسب نهاية المؤشر40 أو60 أو100: كبير10 فأكثر، متوسط5 إلى أقل من10، وبسيطأكبر من0 إلى أقل من5؛ ويُعكس الاتجاه للتراجع. التقدير العام دائمًا من المجموع النهائي: ممتاز90، جيد جدًا80، جيد70، مقبول50، وأقل من50 راسب.','impact-method'));
   }
