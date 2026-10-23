@@ -81,6 +81,17 @@ html,body{margin:0;min-width:0}
 @media(max-width:600px){#granada-results .term-choice select{font-size:15px}#granada-results .period-status{font-size:14px}}
 #granada-results .report .print-date{font-family:inherit;font-size:12px;font-weight:700;line-height:1.7;color:#111;opacity:1}
 #granada-results .report .print-date span{color:inherit;font-weight:inherit}
+/* Compact signatures and a centered, legible initiative credit. */
+#granada-results .report .signatures{padding:16px 12px 18px;gap:18px;align-items:flex-start;font-size:15px}
+#granada-results .report .signatures span{font-size:13px;color:#34465c;font-weight:600;margin-bottom:5px}
+#granada-results .report .initiative-footer{margin-top:0;padding:14px 10px 4px;text-align:center;color:#34465c;font-size:13px;line-height:1.8;border-top:1px solid #cad8e8}
+#granada-results .initiative-footer p{margin:3px 0}
+#granada-results .initiative-footer .initiative-title{font-size:16px;font-weight:800;color:#164776}
+#granada-results .initiative-footer .initiative-author{font-size:14px;font-weight:600;color:#234b78}
+#granada-results .initiative-footer strong{font-weight:800}
+#granada-results .initiative-contact{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 16px;margin-top:7px;font-weight:600}
+#granada-results .initiative-contact a{color:#174b95;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+@media(max-width:600px){#granada-results .report .signatures{padding:12px 0 14px;font-size:13px}#granada-results .report .signatures span{font-size:12px}#granada-results .initiative-footer .initiative-title{font-size:15px}#granada-results .initiative-footer .initiative-author{font-size:13px}#granada-results .initiative-school{font-size:12px}#granada-results .initiative-contact{font-size:12px;gap:4px 12px}}
 
 #granada-results .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 16px}
 #granada-results .period-tabs button{--tab-color:#185ab8;--tab-soft:#edf4ff;--tab-border:#b9d2f4;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;padding:16px 6px;border-radius:13px;border:1px solid var(--tab-border);border-top:4px solid var(--tab-color);background:var(--tab-soft);color:var(--tab-color);transition:background .15s,box-shadow .15s}
