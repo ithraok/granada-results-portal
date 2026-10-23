@@ -85,3 +85,9 @@
 #granada-results .impact-table-wrap .impact-col-recommendation{width:28%;min-width:270px;max-width:none;overflow-wrap:break-word}
 #granada-results .impact-table-wrap td.impact-col-total{background:#f2f6fc}
 @media print{#granada-results .impact-table-wrap table,#granada-results .impact-table-wrap table.impact-student-table{min-width:0}#granada-results .impact-table-wrap th,#granada-results .impact-table-wrap td{padding-inline:4px;border-color:#bccbdb}#granada-results .impact-table-wrap :is(.impact-col-student-name,.impact-col-scope,.impact-col-rank,.impact-col-score,.impact-col-rating,.impact-col-change,.impact-col-recommendation){min-width:0;max-width:none}.impact-table-wrap .impact-col-recommendation{width:27%}}
+/* RTL scroll origin: a reserved vertical gutter makes the right edge unreachable. */
+#granada-results .impact-content,#granada-results .impact-ranking,#granada-results .impact-recommendation{min-width:0;max-width:100%}
+#granada-results .impact-table-wrap{direction:rtl;scrollbar-gutter:auto;overflow-x:auto;overflow-y:hidden;min-width:0;max-width:100%;padding:0}
+#granada-results .impact-table-wrap table{direction:rtl;margin:0}
+#granada-results .impact-table-wrap td.impact-col-student-name{padding-inline-start:14px;padding-inline-end:14px;overflow:visible;text-overflow:clip}
+@media print{#granada-results .impact-table-wrap{overflow:visible;scrollbar-gutter:auto}#granada-results .impact-table-wrap td.impact-col-student-name{padding-inline:4px}}
