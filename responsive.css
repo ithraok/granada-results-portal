@@ -119,3 +119,62 @@ html,body{margin:0;min-width:0}
 #granada-results[data-period="2"] #period-heading{border-color:#087b60}
 #granada-results[data-period="final"] #period-heading{border-color:#7043a3}
 
+
+#granada-results #gr-search{max-width:620px;border-radius:20px}
+#granada-results #gr-search .portal-header{position:relative;isolation:isolate;overflow:hidden;padding:20px 18px 17px;background:linear-gradient(145deg,#0c469d 0%,#073d96 52%,#0756ba 100%);color:#fff;text-align:center;border:0}
+#granada-results .portal-header :where(p){margin:0}
+#granada-results .portal-identity{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto 13px;max-width:440px;line-height:1.65;font-size:13px;font-weight:600}
+#granada-results .portal-logo{display:block;width:76px;height:66px;object-fit:contain;background:#fff;border-radius:13px;padding:7px;flex:none}
+#granada-results .portal-school{font-size:16px;font-weight:800}
+#granada-results .portal-heading{position:relative;z-index:1;max-width:420px;margin:auto}
+#granada-results .portal-heading h1{font-size:27px;line-height:1.55;font-weight:800;margin:0 auto 1px;max-width:400px;letter-spacing:0}
+#granada-results .portal-subject{font-size:26px;line-height:1.55;font-weight:800;color:#ffda61}
+#granada-results .portal-description{font-size:14px;font-weight:600;line-height:1.8;margin:7px auto 8px;max-width:330px}
+#granada-results .portal-parent{white-space:nowrap}
+#granada-results .portal-classes{display:inline-block;max-width:100%;font-size:13px;font-weight:700;line-height:1.7;background:#d5eaff;color:#0b3c7b;border-radius:20px;padding:5px 13px}
+#granada-results .portal-credit{position:relative;z-index:1;font-size:12px;line-height:1.65;margin:13px auto 0;padding-top:10px;border-top:1px solid #a8d8ff50;max-width:310px}
+#granada-results .portal-credit strong{font-size:15px;font-weight:700}
+#granada-results .portal-artwork{display:contents}
+#granada-results .portal-art{position:absolute;z-index:0;background-image:url('/portal-hero.png');background-repeat:no-repeat;background-size:1178px 1335px;pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(0deg,transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
+#granada-results .portal-laptop{width:230px;height:200px;background-position:-30px -215px;left:1px;top:86px;transform:scale(.44);transform-origin:top left}
+#granada-results .portal-results{width:230px;height:275px;background-position:-30px -418px;left:0;bottom:14px;transform:scale(.36);transform-origin:bottom left}
+#granada-results .portal-calendar{width:225px;height:300px;background-position:-935px -390px;right:0;top:124px;transform:scale(.43);transform-origin:top right}
+#granada-results #gr-search .search-body{padding:23px 28px 25px}
+#granada-results #gr-form label{font-size:16px;line-height:1.6;margin-bottom:7px;color:#183452}
+#granada-results #gr-form label[for="gr-phone"]{margin-top:15px!important}
+#granada-results #gr-form input{height:49px;font-size:18px;padding:9px 12px;direction:ltr;text-align:center;border-color:#b8cbe3;background:#f8fafc}
+#granada-results #gr-form input::placeholder{color:#64748b;opacity:1;font-size:16px}
+#granada-results #gr-form input:focus-visible{outline:3px solid #bfd7fb;outline-offset:2px;border-color:#185ab8}
+#granada-results #gr-form .search-guidance{font-size:13px;font-weight:500;line-height:1.85;color:#234b78;margin:14px 0 0;padding:9px 12px;background:#eff6ff;border-right:3px solid #8ab7ed;border-radius:6px;text-align:right}
+#granada-results #gr-form .search-btn{font-size:20px;line-height:1.5;min-height:48px;margin-top:17px}
+#granada-results #gr-form .message:empty{margin:0}
+@media(max-width:600px){
+ #granada-results #gr-search{max-width:440px;border-radius:16px}
+ #granada-results #gr-search .portal-header{padding:16px 12px 15px;display:flex;flex-direction:column}
+ #granada-results .portal-identity{order:0}
+ #granada-results .portal-heading{order:1}
+ #granada-results .portal-credit{order:3}
+ #granada-results .portal-artwork{order:2;display:flex;align-items:center;justify-content:center;gap:24px;min-height:54px;margin-top:9px}
+ #granada-results .portal-artwork .portal-art{position:static;transform:none;flex:none;background-size:235.6px 267px}
+ #granada-results .portal-artwork .portal-laptop{width:46px;height:40px;background-position:-6px -43px}
+ #granada-results .portal-artwork .portal-results{width:46px;height:55px;background-position:-6px -83.6px}
+ #granada-results .portal-artwork .portal-calendar{width:45px;height:60px;background-position:-187px -78px}
+ #granada-results .portal-identity{font-size:11px;gap:11px;margin-bottom:11px}
+ #granada-results .portal-logo{width:61px;height:55px;padding:6px;border-radius:11px}
+ #granada-results .portal-school{font-size:14px}
+ #granada-results .portal-heading{max-width:340px}
+ #granada-results .portal-heading h1{font-size:23px;max-width:290px;line-height:1.55}
+ #granada-results .portal-subject{font-size:23px}
+ #granada-results .portal-description{font-size:12px;max-width:245px;line-height:1.8}
+ #granada-results .portal-classes{font-size:11px;padding:5px 10px}
+ #granada-results .portal-credit{font-size:11px;max-width:260px;margin-top:11px;padding-top:8px}
+ #granada-results .portal-credit strong{font-size:14px}
+ #granada-results .portal-laptop{transform:scale(.23);top:101px;left:0}
+ #granada-results .portal-results{transform:scale(.22);bottom:12px;left:0}
+ #granada-results .portal-calendar{transform:scale(.23);top:143px;right:0}
+ #granada-results #gr-search .search-body{padding:19px 20px 21px}
+ #granada-results #gr-form label{font-size:15px}
+ #granada-results #gr-form input{font-size:17px;height:48px}
+ #granada-results #gr-form .search-guidance{font-size:12px;padding:8px 10px}
+}
+@media(max-width:350px){#granada-results .portal-heading h1{font-size:21px;max-width:260px}#granada-results .portal-subject{font-size:21px}#granada-results .portal-identity{font-size:10px}#granada-results .portal-school{font-size:13px}#granada-results #gr-search .search-body{padding:17px 15px 19px}}

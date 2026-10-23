@@ -16,11 +16,16 @@
 #granada-results .test-note{max-width:1000px}
 @media(max-width:600px){#granada-results .search-body{padding:24px 20px}#granada-results .search-card{border-radius:22px}}
 </style>
-<link rel="stylesheet" href="/responsive.css?v=cd996774d6f1">
+<link rel="stylesheet" href="/responsive.css?v=7e3b67f600a6">
 <div class="test-note no-print" id="gr-test">أدخل هوية الطالب وجوال ولي الأمر المسجل لدى المدرسة.</div>
 <div class="search-card no-print" id="gr-search">
- <header class="brand approved-brand" aria-label="بوابة الاستعلام عن نتائج الطلاب، مادة المهارات الرقمية، مدرسة غرناطة الابتدائية"><div class="approved-header-window"><img class="approved-header-image" src="/portal-hero.png" alt="الإدارة العامة للتعليم بمنطقة الرياض، مدرسة غرناطة الابتدائية، بوابة الاستعلام عن نتائج الطلاب، مادة المهارات الرقمية، للصفوف الرابع والخامس والسادس، تصميم وبرمجة أ. عبدالله بن رشيد الدريبي"></div></header>
- <form class="search-body" id="gr-form"><label for="gr-id">رقم هوية الطالب أو الإقامة:</label><input id="gr-id" name="studentId" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="اكتب رقم هوية ابنك" aria-describedby="gr-msg" required><label for="gr-phone" style="margin-top:22px">جوال ولي الأمر المسجل لدى المدرسة:</label><input id="gr-phone" name="guardianPhone" type="tel" inputmode="tel" autocomplete="off" maxlength="16" placeholder="05xxxxxxxx" aria-describedby="gr-msg" required><p style="margin-top:16px;color:#1e40af;font-size:16px">أدخل هوية الطالب وجوال ولي الأمر المسجل لدى المدرسة لعرض النتيجة. لا تُرسل رسائل نصية.</p><button class="search-btn" type="submit">بحث</button><p id="gr-msg" class="message" role="status" aria-live="polite"></p></form>
+ <header class="brand portal-header" aria-labelledby="portal-title">
+ <div class="portal-artwork" aria-hidden="true"><div class="portal-art portal-laptop" aria-hidden="true"></div><div class="portal-art portal-results" aria-hidden="true"></div><div class="portal-art portal-calendar" aria-hidden="true"></div></div>
+ <div class="portal-identity"><img class="portal-logo" src="/ministry-logo.png" alt="شعار وزارة التعليم" width="82" height="70"><div><p>الإدارة العامة للتعليم بمنطقة الرياض</p><p class="portal-school">مدرسة غرناطة الابتدائية</p></div></div>
+ <div class="portal-heading"><h1 id="portal-title">بوابة الاستعلام عن نتائج الطلاب</h1><p class="portal-subject">مادة المهارات الرقمية</p><p class="portal-description">تقرير الأداء وسجل المتابعة الأسبوعية <span class="portal-parent">لولي الأمر</span></p><p class="portal-classes">للصفوف الرابع والخامس والسادس الابتدائي</p></div>
+ <p class="portal-credit">تصميم وبرمجة معلم المهارات الرقمية<br><strong>أ. عبدالله بن رشيد الدريبي</strong></p>
+</header>
+ <form class="search-body" id="gr-form"><label for="gr-id">رقم هوية الطالب أو الإقامة:</label><input id="gr-id" name="studentId" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="مثال: 1000000000" aria-describedby="gr-guidance gr-msg" required><label for="gr-phone" style="margin-top:22px">جوال ولي الأمر المسجل لدى المدرسة:</label><input id="gr-phone" name="guardianPhone" type="tel" inputmode="numeric" autocomplete="off" maxlength="16" placeholder="مثال: 0500000000" aria-describedby="gr-guidance gr-msg" required><p class="search-guidance" id="gr-guidance">أدخل هوية الطالب وجوال ولي الأمر المسجل لدى المدرسة لعرض النتيجة. لا تُرسل رسائل نصية.</p><button class="search-btn" type="submit">بحث</button><p id="gr-msg" class="message" role="status" aria-live="polite"></p></form>
 </div>
 <article class="report" id="gr-report" aria-label="تقرير متابعة الطالب" hidden>
  <div class="actions no-print"><button type="button" id="gr-print">🖨️ طباعة</button><button type="button" class="new-search" id="gr-back">بحث جديد</button></div>
