@@ -1,6 +1,5 @@
 import {periodView,annualView} from './period-model.mjs';
 import {reportCardModels,createReportCard,renderNarrativeNote,installPrintDetails} from './report-cards.mjs';
-import {mountImpact} from './impact-ui.mjs';
 (()=>{'use strict';
 const root=document.getElementById('granada-results'),find=id=>root.querySelector('#'+id);
 let busy=false,timer,currentReport=null,disposeImpact=null;
@@ -8,6 +7,7 @@ const notes=[...root.querySelectorAll('.note')],tabs=[...root.querySelectorAll('
 const messages={TRY_LATER:'تجاوزت عدد المحاولات. انتظر 15 دقيقة ثم حاول مجددًا.',SERVICE_NOT_READY:'الخدمة قيد التجهيز. حاول لاحقًا.',NO_MATCH:'تعذر مطابقة البيانات. تحقق من الهوية وجوال ولي الأمر المسجل لدى المدرسة.'};
 async function api(path,body){const res=await fetch(path==='impact'?'/api/teacher/impact':'/api/guardian/'+path,{method:body===undefined?'GET':'POST',headers:body===undefined?{}:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),credentials:'same-origin',cache:'no-store'});const data=await res.json();if(!res.ok)throw new Error(messages[data.error]||'انتهت الجلسة أو تعذر الاتصال. أعد البحث.');return data;}
 const printDetails=installPrintDetails(root);
+function mountImpact(){const link=document.createElement('a');link.id='gr-impact';link.href='https://granada-teacher-impact.granada-results-demo.workers.dev/';link.target='_blank';link.rel='noopener noreferrer';link.textContent='تتبّع الأثر — دخول المعلم الخاص';link.style.cssText='display:inline-block;padding:11px 17px;border-radius:10px;background:#173f73;color:white;font-weight:700;text-decoration:none;font-size:14px;line-height:1.8';find('gr-report').querySelector('.actions').append(link);return()=>link.remove();}
 function renderPeriod(period){
  if(!currentReport)return;
  const term=find('gr-term').value,year=term==='year',view=year?annualView(currentReport):periodView(currentReport,period,term);

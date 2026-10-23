@@ -42,7 +42,7 @@ export function mountImpact({root,report,load,onSessionError}){
    content.append(el('p','الأصفار للعرض فقط، ولا تمثل درجات الطلاب ولا تدخل في المتوسط. تظهر نتائج نهاية الفصل والعام بعد اكتمال رصد الفترات اللازمة.','impact-method'));
    return;
   }
-  const sorted=ranking(rows,false,metricKey),classGroups=groups(rows,'class',metricKey),gradeGroups=groups(rows,'grade',metricKey);const scoreCells=r=>[number(r.tasks),number(r.assessment),number(r.score),rating(r.score)];const comparisonTitle=term==='year'?'تغير الفصلين':'تغير الفترتين';const comparisonChart=(title,rows)=>chart(title,rows,`${selected.label} — من ${selected.max}`,selected.max);
+  const sorted=ranking(rows,false,metricKey),classGroups=groups(rows,'class',metricKey),gradeGroups=groups(rows,'grade',metricKey);const scoreCells=r=>[number(r.tasks),number(r.assessment),number(r.score),r.rating||rating(r.score)];const comparisonTitle=term==='year'?'تغير الفصلين':'تغير الفترتين';const comparisonChart=(title,rows)=>chart(title,rows,`${selected.label} — من ${selected.max}`,selected.max);
   const appendRank=(list,title,tone)=>{const section=el('section',undefined,'impact-ranking '+tone);section.append(el('h4',title),table(['الترتيب','الطالب','الصف / الفصل','درجة40','درجة60','المجموع /100','التقدير العام',comparisonTitle+' — '+selected.label,'التوصية المقترحة'],list.slice(0,10).map((r,i)=>[i+1,r.name,className(r),...scoreCells(r),movement(r.delta),recommendation(r)])));content.append(section);};
   const cards=el('div',undefined,'impact-metrics');cards.append(metric('الطلاب في النطاق',summary.registered),metric('لديهم نتيجة مرصودة',summary.recorded),metric('متوسط درجة40',summary.means.tasks),metric('متوسط درجة60',summary.means.assessment),metric('متوسط المجموع /100',summary.means.score),metric('ممتاز — 90 فأعلى',summary.excellent,'positive'),metric('أقل من 70 — يحتاج متابعة',summary.support,'support'),metric('نتائج غير مكتملة',summary.missing));
   if(view==='overview'){
@@ -78,7 +78,7 @@ export function mountImpact({root,report,load,onSessionError}){
    }else{
     content.append(el('p','تعرض هذه الصفحة مستويات الفترة المرصودة فقط. ستظهر مقارنة التحسن والتراجع بعد رصد الفترة التالية؛ لا توجد حاليًا نتيجة لاحقة للمقارنة.','impact-explanation'),table(['الطالب','الفصل','درجة40','درجة60','المجموع /100','التقدير العام'],sorted.map(r=>[r.name,className(r),...scoreCells(r)])));
    }
-   content.append(table(['التقدير العام','عدد الطلاب'],['ممتاز','جيد جدًا','جيد','مقبول','راسب','غير متاح'].map(label=>[label,rows.filter(r=>rating(r.score)===label).length])));
+   content.append(table(['التقدير العام','عدد الطلاب'],[...new Set(['ممتاز','جيد جدًا','جيد','مقبول','راسب','غير متاح',...rows.map(r=>r.rating||rating(r.score))])].map(label=>[label,rows.filter(r=>(r.rating||rating(r.score))===label).length])));
    content.append(el('p','التغير = الدرجة اللاحقة − الدرجة السابقة للمؤشر نفسه. تُحدد فئة التغير بعد تحويله إلى نقاط مئوية بحسب نهاية المؤشر40 أو60 أو100: كبير10 فأكثر، متوسط5 إلى أقل من10، وبسيطأكبر من0 إلى أقل من5؛ ويُعكس الاتجاه للتراجع. التقدير العام دائمًا من المجموع النهائي: ممتاز90، جيد جدًا80، جيد70، مقبول50، وأقل من50 راسب.','impact-method'));
   }
   content.append(el('p',`${data.students.length} سجلًا وهميًا في ستة فصول. تُستبعد النتيجة الناقصة من المتوسط والترتيب؛ المتوسط العام موزون بعدد الطلاب المرصودين. ${term==='year'?'المقارنة بين نتيجتي الفصلين الدراسيين.':'المقارنة بين الفترة الثانية والأولى للفصل المختار.'} الألوان والأسهم تصف الدرجات المسجلة ولا تثبت سبب التحسن أو التراجع.`,'impact-method'));

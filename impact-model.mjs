@@ -11,7 +11,8 @@ export function observation(student,term='1',period='1'){
  const after=term==='year'?semester('2'):clean(source(term,'2'));
  const current=term==='year'?Object.fromEntries(Object.keys(impactMetrics).map(k=>[k,pair(before[k],after[k])])):period==='final'?semester(term):clean(source(term,period));
  const changes=Object.fromEntries(Object.keys(impactMetrics).map(k=>[k,before[k]!==null&&after[k]!==null?after[k]-before[k]:null]));
- return {...current,before:before.score,after:after.score,baseline:before,comparison:after,changes,rating:rating(current.score)};
+ const savedRating=term!=='year'&&period!=='final'?source(term,period).reportedRating:null;
+ return {...current,before:before.score,after:after.score,baseline:before,comparison:after,changes,rating:typeof savedRating==='string'&&savedRating.trim()?savedRating:rating(current.score)};
 }
 export function impactRows(students,term,period,scope='all',metric='score'){
  if(!impactMetrics[metric])throw Error('Invalid impact metric');
