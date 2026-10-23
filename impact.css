@@ -28,14 +28,14 @@
 #granada-results .impact-track{height:12px;background:#eaf0f8;border-radius:8px;overflow:hidden}
 #granada-results .impact-bar{height:100%;background:#236bb7;border-radius:8px}
 #granada-results .impact-table-wrap{overflow-x:auto;border:1px solid #dce5f1;border-radius:10px;margin:16px 0 24px}
-#granada-results .impact-table-wrap table{width:100%;border-collapse:collapse;min-width:620px;font-size:13px;line-height:1.8}
+#granada-results .impact-table-wrap table{width:100%;border-collapse:collapse;min-width:1000px;font-size:13px;line-height:1.8}
 #granada-results .impact-table-wrap th{background:#edf4ff;color:#184475;font-weight:800;white-space:nowrap}
 #granada-results .impact-table-wrap th,#granada-results .impact-table-wrap td{padding:12px;border-bottom:1px solid #e3eaf3;text-align:right;vertical-align:top}
 #granada-results .impact-table-wrap tr:nth-child(even){background:#f9fbfe}
 #granada-results .impact-ranking h4{font-size:17px;border-right:4px solid #087b60;padding:10px;background:#f0faf5;border-radius:5px}
 #granada-results .impact-ranking.support h4{border-color:#a52b4c;background:#fff3f6;color:#90213f}
-#granada-results .impact-ranking.positive tbody td:nth-child(4){color:#08734f;font-weight:800}
-#granada-results .impact-ranking.support tbody td:nth-child(4){color:#a02647;font-weight:800}
+#granada-results .impact-ranking.positive tbody td:is(:nth-child(4),:nth-child(5),:nth-child(6)){color:#08734f;font-weight:800}
+#granada-results .impact-ranking.support tbody td:is(:nth-child(4),:nth-child(5),:nth-child(6)){color:#a02647;font-weight:800}
 #granada-results .impact-up{color:#08734f;font-weight:800;white-space:nowrap}
 #granada-results .impact-down{color:#a02647;font-weight:800;white-space:nowrap}
 #granada-results .impact-flat{color:#53647a;white-space:nowrap}
