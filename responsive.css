@@ -95,6 +95,95 @@ html,body{margin:0;min-width:0}
 /* Exactly two centered footer lines, scaled to fit narrow screens. */
 #granada-results .report .initiative-footer .initiative-line{font-size:clamp(5px,1.02vw,10px);font-weight:600;color:#234b78;white-space:nowrap;line-height:1.9;margin:0}
 #granada-results .report .initiative-footer .initiative-contact{flex-wrap:nowrap;white-space:nowrap;font-size:clamp(9px,1.4vw,12px);gap:4px 12px;margin-top:4px;line-height:1.9}
+/* Report controls stay in normal flow, at the upper left. */
+#granada-results .report .actions{position:static;display:flex;justify-content:flex-end;gap:8px;padding:0 0 14px;margin:0 0 15px;border-bottom:1px solid #e3ebf5}
+#granada-results .report .actions button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:9px 15px;border-radius:9px;font-size:14px;font-weight:700;line-height:1.4;transition:background .14s,box-shadow .14s,transform .14s}
+#granada-results #gr-back{background:#edf4ff;color:#174b95;border:1px solid #bdd2ee}
+#granada-results #gr-print{background:#173653;color:#fff;border:1px solid #173653}
+#granada-results .actions svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#granada-results .actions button:focus-visible,#granada-results summary:focus-visible{outline:3px solid #e2b440;outline-offset:4px}
+#granada-results .actions button:active{transform:translateY(1px)}
+/* Primary values remain visible independently of disclosure state. */
+#granada-results .report .grades{align-items:start;gap:12px}
+#granada-results .report .grade{border-radius:12px;border-color:#d9e4ef;box-shadow:0 2px 7px #17365308;padding:15px;transition:border-color .16s,box-shadow .16s}
+#granada-results .report .grade.interactive{display:block;cursor:default}
+#granada-results .card-core{display:flex;flex-direction:column;min-height:112px;list-style:none}
+#granada-results summary.card-core{cursor:pointer}
+#granada-results summary::-webkit-details-marker{display:none}
+#granada-results .card-core h3{font-size:13px;line-height:1.7;margin:0 0 10px}
+#granada-results .grade-number{display:flex;align-items:baseline;justify-content:center;gap:6px;flex-wrap:wrap;margin:auto 0}
+#granada-results .report .grade-value{font-size:25px;font-weight:800;line-height:1.4;margin:3px 0}
+#granada-results .grade-maximum{font-size:12px;color:#52657b;font-weight:600}
+#granada-results .primary-card .grade-value{font-size:32px}
+#granada-results .primary-card .card-core h3{font-size:14px}
+#granada-results .grade.rating-excellent{background:#effaf4;border-color:#a8d6bc}
+#granada-results .rating-excellent .grade-value{color:#167346}
+#granada-results .grade.rating-very-good{background:#edf8f8;border-color:#abd2d3}
+#granada-results .rating-very-good .grade-value{color:#116b70}
+#granada-results .grade.rating-good{background:#edf4ff;border-color:#b6cce9}
+#granada-results .rating-good .grade-value{color:#174b95}
+#granada-results .grade.rating-acceptable{background:#fff8e9;border-color:#e5ce96}
+#granada-results .rating-acceptable .grade-value{color:#85600c}
+#granada-results .grade.rating-needs-support{background:#fff1f4;border-color:#dcaebd}
+#granada-results .rating-needs-support .grade-value{color:#8a2043}
+#granada-results .grade.rating-pending,#granada-results .grade.neutral{background:#f5f8fb;border-color:#d9e4ef;color:#34465c}
+#granada-results .grade.neutral h3,#granada-results .grade.neutral .grade-value{color:#34465c}
+#granada-results .score-progress{display:block;appearance:none;width:100%;height:6px;border:0;border-radius:8px;overflow:hidden;background:#dbe6f3;accent-color:#185ab8;margin:12px 0 2px}
+#granada-results .score-progress::-webkit-progress-bar{background:#dbe6f3;border-radius:8px}
+#granada-results .score-progress::-webkit-progress-value{background:#185ab8;border-radius:8px}
+#granada-results .green .score-progress{accent-color:#087b60}
+#granada-results .green .score-progress::-webkit-progress-value{background:#087b60}
+#granada-results .score-progress::-moz-progress-bar{background:#185ab8;border-radius:8px}
+#granada-results .card-toggle{display:flex;justify-content:center;align-items:center;gap:7px;margin-top:10px;font-size:12px;font-weight:700;color:#315a8f;line-height:1.6}
+#granada-results .detail-arrow{font-size:18px;line-height:1;transition:transform .16s}
+#granada-results details[open]>.card-core .detail-arrow,#granada-results .note-disclosure[open]>summary .detail-arrow{transform:rotate(180deg)}
+#granada-results details .when-open{display:none}
+#granada-results details[open]>.card-core .when-open,#granada-results .note-disclosure[open]>summary .when-open{display:inline}
+#granada-results details[open]>.card-core .when-closed,#granada-results .note-disclosure[open]>summary .when-closed{display:none}
+#granada-results .grade.interactive[open]{border-color:#497dba;box-shadow:0 0 0 2px #dbe9fa}
+#granada-results .card-details{border-top:1px solid #cbd9e9;padding-top:11px;margin-top:12px;font-size:13px;line-height:1.85;color:#23405e}
+#granada-results details[open]>.card-details{animation:report-detail-in .15s ease-out}
+#granada-results .card-details dl{margin:0}
+#granada-results .card-details dl>div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:5px 0;border-bottom:1px solid #dfe8f2}
+#granada-results .card-details dl>div:last-child{border-bottom:0}
+#granada-results .card-details dt{font-size:12px;font-weight:500;line-height:1.8}
+#granada-results .card-details dd{font-size:16px;font-weight:800;white-space:nowrap;margin:0}
+#granada-results .detail-copy{white-space:pre-wrap;overflow-wrap:anywhere;text-align:right;margin:0;font-size:14px;line-height:1.9}
+#granada-results .grade.source-text .grade-number{display:block;margin:0}
+#granada-results .grade.source-text .grade-value{font-size:14px;line-height:1.85;font-weight:500;text-align:right}
+#granada-results .long-text:not([open])>summary .summary-preview{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#granada-results .long-text[open]>summary .summary-preview{display:none}
+#granada-results .report .note{white-space:normal;border-radius:10px;padding:16px 18px;margin-bottom:14px}
+#granada-results .report .note-heading{font-size:15px;color:#173f73;line-height:1.7;margin-bottom:8px}
+#granada-results .note-disclosure>summary{list-style:none;cursor:pointer}
+#granada-results .note-disclosure .card-toggle{justify-content:flex-start}
+#granada-results .note-disclosure[open]{outline:1px solid #b6cde7;outline-offset:7px;border-radius:4px}
+#granada-results .note .card-details{margin-top:8px}
+@keyframes report-detail-in{from{opacity:.45;transform:translateY(-3px)}to{opacity:1;transform:none}}
+@media(hover:hover){#granada-results #gr-back:hover{background:#dfeafd}#granada-results #gr-print:hover{background:#102940}#granada-results .grade.interactive:hover{border-color:#7b9ec7;box-shadow:0 3px 10px #17365312}}
+@media(max-width:600px){#granada-results .report .actions button{min-height:40px;font-size:13px;padding:8px 12px}#granada-results .actions svg{width:17px;height:17px}#granada-results .card-core{min-height:105px}#granada-results .card-core h3{font-size:12px}#granada-results .primary-card .card-core h3{font-size:13px}#granada-results .report .grade{padding:12px}#granada-results .primary-card .grade-value{font-size:28px}#granada-results .report .grade-value{font-size:23px}#granada-results .report .note{padding:14px}#granada-results .card-details dl>div{gap:8px}#granada-results .card-details dd{font-size:15px}}
+@media(prefers-reduced-motion:reduce){#granada-results .report .grade,#granada-results .detail-arrow,#granada-results .actions button{transition:none}#granada-results details[open]>.card-details{animation:none}#granada-results .actions button:active{transform:none}}
+@media print{
+ @page{size:A4;margin:12mm}
+ #granada-results .actions,#granada-results .period-tabs,#granada-results .term-choice,#granada-results .card-toggle{display:none!important}
+ #granada-results .report .grade{box-shadow:none!important;transition:none!important;border:1px solid #9daab9;break-inside:avoid;page-break-inside:avoid;padding:10px}
+ #granada-results .card-core{min-height:0}
+ #granada-results details>.card-details{display:block!important;content-visibility:visible!important;animation:none!important}
+ #granada-results .long-text>summary .summary-preview{display:none!important}
+ #granada-results .card-details{margin-top:8px;padding-top:8px}
+ #granada-results .card-details dt{font-size:10px}
+ #granada-results .card-details dd{font-size:13px}
+ #granada-results .detail-copy,#granada-results .note p{font-size:11px;line-height:1.7}
+ #granada-results .grade-value{font-size:21px!important}
+ #granada-results .primary-card .grade-value{font-size:25px!important}
+ #granada-results .grade-maximum{font-size:10px}
+ #granada-results .score-progress{height:4px}
+ #granada-results .note,#granada-results .student,#granada-results .report-header,#granada-results .signatures,#granada-results .initiative-footer{break-inside:avoid;page-break-inside:avoid}
+ #granada-results .report .grades{gap:8px;margin-bottom:14px}
+ #granada-results .note{margin-bottom:10px;padding:10px}
+ #granada-results .report-demo{font-size:23px}
+ #granada-results .period-status{font-size:11px;margin-bottom:10px}
+}
 
 #granada-results .period-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 16px}
 #granada-results .period-tabs button{--tab-color:#185ab8;--tab-soft:#edf4ff;--tab-border:#b9d2f4;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;padding:16px 6px;border-radius:13px;border:1px solid var(--tab-border);border-top:4px solid var(--tab-color);background:var(--tab-soft);color:var(--tab-color);transition:background .15s,box-shadow .15s}

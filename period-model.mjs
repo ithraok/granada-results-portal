@@ -32,7 +32,7 @@ export function periodView(data,period='1',term='1'){
  const source=semester?.periods?.[period],second=period==='2',word=second?'الثانية':'الأولى';
  return {period,term,title:'📊 تفاصيل الأداء والدرجات — الفصل الدراسي '+name+' — الفترة '+word,status:source?'الفصل الدراسي '+name+' — الفترة '+word:'لم يبدأ الرصد — الأصفار للعرض، وليست درجات نهائية مرصودة',showNotes:true,showCalculation:false,showAnnual:false,
  scores:(source?.scores||data.scores).map(([label,value,tone,icon],index)=>[label.replace(/الفترة (الأولى|الثانية)/g,'الفترة '+word),source?value:index===0?'لم يبدأ الرصد':index>=10?'':0,tone,icon]),
- homework:source?(source.homework??''):'',notes:source?(source.notes??''):'',teacherRecommendation:source?performanceRecommendation(source.scores?.[1]?.[1]):''};
+ recorded:Boolean(source),homework:source?(source.homework??''):'',notes:source?(source.notes??''):'',teacherRecommendation:source?performanceRecommendation(source.scores?.[1]?.[1]):''};
 }
 export function annualView(data){
  const first=semesterTotals(data,'1'),second=semesterTotals(data,'2');
