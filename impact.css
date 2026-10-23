@@ -1,0 +1,47 @@
+#granada-results .impact-entry{background:#6844a0!important;color:white!important;border-color:#6844a0!important}
+#granada-results .impact-panel{max-width:1160px;margin:20px auto;background:#fff;border:1px solid #dae5f2;border-radius:18px;padding:26px;color:#173653;text-align:right;font-family:inherit}
+#granada-results .impact-panel[hidden]{display:none!important}
+#granada-results .impact-panel h2{font-size:30px;color:#173f73;margin:8px 0;text-align:center}
+#granada-results .impact-subtitle{text-align:center;font-weight:700;margin:6px}
+#granada-results .impact-demo-banner{text-align:center;background:#f5f0fd;color:#674097;border:1px solid #dfd2ee;padding:12px;border-radius:10px;font-weight:700}
+#granada-results .impact-actions{display:flex;gap:10px;justify-content:flex-end;border-bottom:1px solid #e1e9f2;padding-bottom:14px}
+#granada-results .impact-panel button{font-family:inherit;font-size:14px;font-weight:700;min-height:42px;border-radius:9px;background:#edf4ff;color:#194f91;border:1px solid #c1d5ef;padding:9px 15px;cursor:pointer}
+#granada-results .impact-panel button:focus-visible,#granada-results .impact-panel select:focus-visible,#granada-results .impact-panel summary:focus-visible{outline:3px solid #327bca;outline-offset:3px}
+#granada-results .impact-filters{display:flex;gap:15px;flex-wrap:wrap;background:#f4f7fc;border-radius:12px;padding:16px;margin:20px 0}
+#granada-results .impact-filters label{display:flex;flex:1;min-width:180px;flex-direction:column;gap:7px;font-weight:700;font-size:14px}
+#granada-results .impact-filters select{font:inherit;color:#173653;background:white;border:1px solid #b5cbe4;border-radius:8px;padding:10px;width:100%;min-height:43px}
+#granada-results .impact-nav{display:flex;flex-wrap:wrap;gap:8px;padding-bottom:18px;border-bottom:1px solid #e0e8f3}
+#granada-results .impact-nav button[aria-pressed=true]{background:#174f94;color:white;border-color:#174f94}
+#granada-results .impact-content>h3{font-size:22px;color:#173f73;margin:24px 0 16px}
+#granada-results .impact-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0 24px}
+#granada-results .impact-metric{border:1px solid #dbe5f1;border-top:3px solid #2667b5;background:#f6f9fe;border-radius:12px;padding:17px;text-align:center}
+#granada-results .impact-metric span{display:block;font-size:13px;font-weight:700;line-height:1.7}
+#granada-results .impact-metric strong{font-size:28px;display:block;margin-top:8px;color:#173f73}
+#granada-results .impact-metric.positive{border-top-color:#108366;background:#f0faf5}
+#granada-results .impact-metric.support{border-top-color:#a63750;background:#fff4f6}
+#granada-results .impact-chart{border:1px solid #dce6f2;border-radius:12px;padding:20px;margin:20px 0}
+#granada-results .impact-chart h3{font-size:17px;margin:0 0 8px}
+#granada-results .impact-muted,#granada-results .impact-method{color:#52647b;font-size:12px;line-height:1.9}
+#granada-results .impact-context{font-weight:700;color:#385b88;line-height:1.8;font-size:14px}
+#granada-results .impact-chart-row{margin:17px 0}
+#granada-results .impact-chart-label{display:flex;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:14px}
+#granada-results .impact-track{height:12px;background:#eaf0f8;border-radius:8px;overflow:hidden}
+#granada-results .impact-bar{height:100%;background:#236bb7;border-radius:8px}
+#granada-results .impact-table-wrap{overflow-x:auto;border:1px solid #dce5f1;border-radius:10px;margin:16px 0 24px}
+#granada-results .impact-table-wrap table{width:100%;border-collapse:collapse;min-width:620px;font-size:13px;line-height:1.8}
+#granada-results .impact-table-wrap th{background:#edf4ff;color:#184475;font-weight:800;white-space:nowrap}
+#granada-results .impact-table-wrap th,#granada-results .impact-table-wrap td{padding:12px;border-bottom:1px solid #e3eaf3;text-align:right;vertical-align:top}
+#granada-results .impact-table-wrap tr:nth-child(even){background:#f9fbfe}
+#granada-results .impact-ranking h4{font-size:17px;border-right:4px solid #087b60;padding:10px;background:#f0faf5;border-radius:5px}
+#granada-results .impact-ranking.support h4{border-color:#a52b4c;background:#fff3f6;color:#90213f}
+#granada-results .impact-ranking.positive tbody td:nth-child(4){color:#08734f;font-weight:800}
+#granada-results .impact-ranking.support tbody td:nth-child(4){color:#a02647;font-weight:800}
+#granada-results .impact-up{color:#08734f;font-weight:800;white-space:nowrap}
+#granada-results .impact-down{color:#a02647;font-weight:800;white-space:nowrap}
+#granada-results .impact-flat{color:#53647a;white-space:nowrap}
+#granada-results .impact-explanation{background:#f0f6ff;border-right:3px solid #2c69b1;padding:13px;font-size:14px;line-height:1.9}
+#granada-results .impact-recommendation{border:1px solid #dce5f1;border-radius:10px;padding:15px;margin:12px 0}
+#granada-results .impact-recommendation summary{font-weight:800;cursor:pointer;padding:6px}
+#granada-results .impact-empty,#granada-results .impact-error{color:#90213f;padding:16px}
+@media(max-width:600px){#granada-results .impact-panel{padding:14px;margin:10px auto;border-radius:12px}#granada-results .impact-panel h2{font-size:25px}#granada-results .impact-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#granada-results .impact-metric{padding:12px}#granada-results .impact-metric strong{font-size:24px}#granada-results .impact-filters{padding:12px;gap:10px}#granada-results .impact-chart{padding:14px}#granada-results .impact-nav button{font-size:12px;padding:8px 10px}#granada-results .report .actions{flex-wrap:wrap}}
+@media print{#granada-results .impact-actions,#granada-results .impact-nav,#granada-results .impact-filters,#granada-results .impact-entry{display:none!important}#granada-results .impact-panel{border:0;padding:0;margin:0;max-width:none}#granada-results .impact-table-wrap{overflow:visible;border-radius:0}#granada-results .impact-table-wrap table{min-width:0;font-size:9px}#granada-results .impact-table-wrap th,#granada-results .impact-table-wrap td{padding:5px}#granada-results .impact-table-wrap tr,#granada-results .impact-metric,#granada-results .impact-chart{break-inside:avoid}#granada-results .impact-table-wrap thead{display:table-header-group}#granada-results .impact-recommendation>*{display:block!important}#granada-results .impact-demo-banner{font-size:11px}}
