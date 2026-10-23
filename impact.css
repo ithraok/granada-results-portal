@@ -45,3 +45,28 @@
 #granada-results .impact-empty,#granada-results .impact-error{color:#90213f;padding:16px}
 @media(max-width:600px){#granada-results .impact-panel{padding:14px;margin:10px auto;border-radius:12px}#granada-results .impact-panel h2{font-size:25px}#granada-results .impact-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#granada-results .impact-metric{padding:12px}#granada-results .impact-metric strong{font-size:24px}#granada-results .impact-filters{padding:12px;gap:10px}#granada-results .impact-chart{padding:14px}#granada-results .impact-nav button{font-size:12px;padding:8px 10px}#granada-results .report .actions{flex-wrap:wrap}}
 @media print{#granada-results .impact-actions,#granada-results .impact-nav,#granada-results .impact-filters,#granada-results .impact-entry{display:none!important}#granada-results .impact-panel{border:0;padding:0;margin:0;max-width:none}#granada-results .impact-table-wrap{overflow:visible;border-radius:0}#granada-results .impact-table-wrap table{min-width:0;font-size:9px}#granada-results .impact-table-wrap th,#granada-results .impact-table-wrap td{padding:5px}#granada-results .impact-table-wrap tr,#granada-results .impact-metric,#granada-results .impact-chart{break-inside:avoid}#granada-results .impact-table-wrap thead{display:table-header-group}#granada-results .impact-recommendation>*{display:block!important}#granada-results .impact-demo-banner{font-size:11px}}
+/* Report readability: semantic columns retain a complete, unbroken student name. */
+#granada-results .impact-panel{font-weight:700;color:#173653}
+#granada-results .impact-table-wrap table{width:max-content;min-width:100%;font-size:14px;line-height:1.85;table-layout:auto}
+#granada-results .impact-table-wrap th,#granada-results .impact-table-wrap td{font-weight:700;padding:11px 13px;vertical-align:middle}
+#granada-results .impact-table-wrap th{font-size:14px;color:#163e6e}
+#granada-results .impact-table-wrap .impact-col-student-name{min-width:285px;white-space:nowrap;word-break:normal;overflow-wrap:normal}
+#granada-results .impact-table-wrap td.impact-col-student-name{color:#1458aa;font-weight:800}
+#granada-results .impact-table-wrap .impact-col-scope{min-width:115px;white-space:nowrap}
+#granada-results .impact-table-wrap .impact-col-rank{min-width:55px;text-align:center}
+#granada-results .impact-table-wrap .impact-col-score{min-width:76px;text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+#granada-results .impact-table-wrap td.impact-col-score{color:#08734f;font-weight:800}
+#granada-results .impact-table-wrap .impact-col-rating{min-width:110px;text-align:center;white-space:nowrap}
+#granada-results .impact-table-wrap .impact-col-change{width:145px;min-width:130px;max-width:155px;text-align:center;white-space:normal}
+#granada-results .impact-table-wrap td.impact-col-change{white-space:nowrap}
+#granada-results .impact-table-wrap .impact-col-recommendation{width:340px;min-width:300px;max-width:370px;white-space:normal;line-height:1.9}
+#granada-results .impact-table-wrap td.impact-col-recommendation{color:#111111;font-weight:700}
+#granada-results .impact-table-wrap td.impact-rating-excellent{color:#1458aa}
+#granada-results .impact-table-wrap td.impact-rating-very-good{color:#08734f}
+#granada-results .impact-table-wrap td.impact-rating-good{color:#0b6870}
+#granada-results .impact-table-wrap td.impact-rating-acceptable{color:#8c4f0e}
+#granada-results .impact-table-wrap td.impact-rating-weak{color:#b4233b}
+#granada-results .impact-table-wrap td.impact-rating-pending{color:#475569}
+#granada-results .impact-context,#granada-results .impact-explanation,#granada-results .impact-chart-label,#granada-results .impact-flat{font-weight:700}
+#granada-results .impact-ranking.support td.impact-col-score{color:#a02647}
+@media print{#granada-results .impact-table-wrap table{width:100%;min-width:0;font-size:9px;table-layout:auto}#granada-results .impact-table-wrap th,#granada-results .impact-table-wrap td{font-size:9px;padding:4px;font-weight:700}#granada-results .impact-table-wrap .impact-col-student-name{min-width:0;width:23%;white-space:normal;word-break:normal}#granada-results .impact-table-wrap :is(.impact-col-scope,.impact-col-rank,.impact-col-score,.impact-col-rating,.impact-col-change,.impact-col-recommendation){min-width:0;max-width:none;width:auto;white-space:normal}#granada-results .impact-table-wrap .impact-col-recommendation{width:27%}}

@@ -5,9 +5,11 @@ const gradeName=g=>({4:'الرابع',5:'الخامس',6:'السادس'}[g]||g);
 const className=r=>`${gradeName(r.grade)} / ${r.section}`;
 function select(label,options,value){const wrap=el('label',label),s=el('select');for(const [v,t]of options){const o=el('option',t);o.value=v;s.append(o);}s.value=value;wrap.append(s);return [wrap,s];}
 function table(headers,rows){
+ const column=label=>label==='الطالب'?'student-name':label.includes('التوصية')?'recommendation':label==='التقدير العام'?'rating':label.includes('تغير')?'change':label.includes('درجة40')||label.includes('درجة60')||label.startsWith('المجموع')?'score':label==='الترتيب'?'rank':label.includes('الفصل')||label==='النطاق'?'scope':'';
+ const ratingTone=value=>{const text=String(value??'').replace(/[\u064b-\u065f\u0670\u0640]/g,'').trim();return text==='ممتاز'?'excellent':text==='جيد جدا'?'very-good':text==='جيد'?'good':text==='مقبول'?'acceptable':['راسب','ضعيف'].includes(text)?'weak':'pending';};
  const box=el('div',undefined,'impact-table-wrap');box.tabIndex=0;box.setAttribute('aria-label','جدول النتائج — يمكن تمريره أفقيًا');
- const t=el('table'),head=el('thead'),tr=el('tr');for(const h of headers){const th=el('th',h);th.scope='col';tr.append(th);}head.append(tr);t.append(head);
- const body=el('tbody');for(const cells of rows){const r=el('tr');for(const cell of cells){const td=el('td');if(cell instanceof Node)td.append(cell);else td.textContent=String(cell??'غير متاح');r.append(td);}body.append(r);}t.append(body);box.append(t);if(!rows.length)box.append(el('p','لا تتوفر بيانات مرصودة لهذا الاختيار.','impact-empty'));return box;
+ const t=el('table'),head=el('thead'),tr=el('tr');for(const h of headers){const th=el('th',h);th.scope='col';if(column(h))th.className='impact-col-'+column(h);tr.append(th);}head.append(tr);t.append(head);
+ const body=el('tbody');for(const cells of rows){const r=el('tr');for(const [index,cell] of cells.entries()){const td=el('td'),kind=column(headers[index]||'');if(kind)td.className='impact-col-'+kind;if(kind==='rating')td.classList.add('impact-rating-'+ratingTone(cell));if(cell instanceof Node)td.append(cell);else td.textContent=String(cell??'غير متاح');r.append(td);}body.append(r);}t.append(body);box.append(t);if(!rows.length)box.append(el('p','لا تتوفر بيانات مرصودة لهذا الاختيار.','impact-empty'));return box;
 }
 function movement(delta){const n=el('span',delta===null?'غير متاح':`${delta>0?'↑ +':delta<0?'↓ ': '↔ '}${number(delta)} نقطة`,delta>0?'impact-up':delta<0?'impact-down':'impact-flat');return n;}
 function chart(title,rows,valueLabel='متوسط الدرجة من 100',maximum=100){
