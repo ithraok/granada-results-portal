@@ -386,3 +386,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 #granada-results .data-update-badge{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px 8px;margin:0 0 18px;padding:9px 12px;border:1px solid #cdddf0;border-radius:10px;background:#edf5ff;color:#194b80;font-size:12px;font-weight:700;text-align:center;line-height:1.9}#granada-results .data-update-badge time{font-weight:800}#granada-results .report-data-update{margin-top:6px;font-size:10px;line-height:1.9;color:#17549a;font-weight:700}#granada-results .report-data-update time{display:block;font-size:10px}@media print{#granada-results .report-data-update,#granada-results .report-data-update time{font-size:8px}}
 
 #granada-results .search-guidance+.data-update-badge{margin:10px 0 0;font-size:12px;padding:9px 12px}#granada-results .data-update-badge+.search-btn{margin-top:14px}
+
+/* Compact student report masthead without compressing readable content. */
+#granada-results .report{padding:24px 30px}
+#granada-results .report .actions{padding-bottom:9px;margin-bottom:8px}
+#granada-results .report .report-demo{font-size:24px;line-height:1.65;padding:2px 0;margin:4px 0 9px}
+#granada-results .report .report-header{gap:10px;align-items:center;padding-bottom:11px;margin-bottom:13px;font-size:12px;border-bottom-width:2px}
+#granada-results .report .report-header p{line-height:1.7;margin:0}
+#granada-results .report .report-header .vision{max-width:96px;height:72px}
+#granada-results .report .report-header .print-date{margin-top:4px;font-size:10px}
+#granada-results .report .report-header .report-data-update{margin-top:4px;font-size:10px;line-height:1.65}
+#granada-results .report .report-header .report-data-update time{font-size:10px;line-height:1.65}
+@media(max-width:600px){#granada-results .report{padding:16px 14px}#granada-results .report .report-demo{font-size:21px;margin-bottom:7px}#granada-results .report .report-header{font-size:10px;gap:7px;padding-bottom:9px;margin-bottom:11px}#granada-results .report .report-header .vision{max-width:68px;height:56px}#granada-results .report .report-header .print-date,#granada-results .report .report-header .report-data-update,#granada-results .report .report-header .report-data-update time{font-size:9px}}
+@media print{#granada-results .report{padding:0}#granada-results .report .report-demo{font-size:20px;margin:0 0 6px;padding:0}#granada-results .report .report-header{font-size:10px;padding-bottom:7px;margin-bottom:10px}#granada-results .report .report-header .vision{height:56px}#granada-results .report .report-header .print-date,#granada-results .report .report-header .report-data-update,#granada-results .report .report-header .report-data-update time{font-size:8px}}
