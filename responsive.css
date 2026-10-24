@@ -382,3 +382,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 .analysis-page .ranks h3,.detail-page thead th{color:white}
 @media(max-width:600px){#granada-results .impact-panel h2{font-size:24px}#granada-results .impact-content>h3{font-size:20px}#granada-results .impact-nav button{font-size:12px}}
 @media print{#granada-results .impact-table-wrap table thead th,#granada-results .annual-breakdown th,.analysis-page table th,.detail-page table th{font-size:9px;padding-block:5px}.analysis-page :is(h3,h4),.detail-page h3{font-size:11px}}
+
+#granada-results .data-update-badge{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px 8px;margin:0 0 18px;padding:9px 12px;border:1px solid #cdddf0;border-radius:10px;background:#edf5ff;color:#194b80;font-size:12px;font-weight:700;text-align:center;line-height:1.9}#granada-results .data-update-badge time{font-weight:800}#granada-results .report-data-update{margin-top:6px;font-size:10px;line-height:1.9;color:#17549a;font-weight:700}#granada-results .report-data-update time{display:block;font-size:10px}@media print{#granada-results .report-data-update,#granada-results .report-data-update time{font-size:8px}}
+
+#granada-results .search-guidance+.data-update-badge{margin:10px 0 0;font-size:12px;padding:9px 12px}#granada-results .data-update-badge+.search-btn{margin-top:14px}
