@@ -5,14 +5,14 @@ export const impactMetrics={score:{label:'المجموع النهائي',max:100
 export function rating(score){return !valid(score)?'غير متاح':score>=90?'ممتاز':score>=80?'جيد جدًا':score>=70?'جيد':score>=50?'مقبول':'راسب';}
 export function observation(student,term='1',period='1'){
  const source=(t,p)=>student.periods?.[`${t}-${p}`]||{};
- const clean=s=>Object.fromEntries(Object.entries(impactMetrics).map(([k,m])=>[k,valid(s[k],m.max)?s[k]:null]));
+ const clean=s=>{const values=Object.fromEntries(Object.entries(impactMetrics).map(([k,m])=>[k,valid(s[k],m.max)?s[k]:null]));if(values.tasks!==null&&values.assessment!==null)values.score=Math.round(values.tasks)+Math.round(values.assessment);return values;};
  const semester=t=>{const a=clean(source(t,'1')),b=clean(source(t,'2'));return Object.fromEntries(Object.keys(impactMetrics).map(k=>[k,pair(a[k],b[k])]));};
  const before=term==='year'?semester('1'):clean(source(term,'1'));
  const after=term==='year'?semester('2'):clean(source(term,'2'));
  const current=term==='year'?Object.fromEntries(Object.keys(impactMetrics).map(k=>[k,pair(before[k],after[k])])):period==='final'?semester(term):clean(source(term,period));
  const changes=Object.fromEntries(Object.keys(impactMetrics).map(k=>[k,before[k]!==null&&after[k]!==null?after[k]-before[k]:null]));
  const savedRating=term!=='year'&&period!=='final'?source(term,period).reportedRating:null;
- return {...current,before:before.score,after:after.score,baseline:before,comparison:after,changes,rating:typeof savedRating==='string'&&savedRating.trim()?savedRating:rating(current.score)};
+ return {...current,before:before.score,after:after.score,baseline:before,comparison:after,changes,rating:current.tasks!==null&&current.assessment!==null?rating(current.score):typeof savedRating==='string'&&savedRating.trim()?savedRating:rating(current.score)};
 }
 export function impactRows(students,term,period,scope='all',metric='score'){
  if(!impactMetrics[metric])throw Error('Invalid impact metric');

@@ -4,13 +4,14 @@ const numberWithin=(value,max)=>typeof value==='number'&&Number.isFinite(value)&
 const present=value=>value!==null&&value!==undefined&&String(value).trim()!=='';
 export function noBehaviorConcern(value){
  const text=String(value??'').normalize('NFKC').replace(/[\u064b-\u065f\u0670\u0640]/g,'').replace(/[.،؛!؟…]/g,'').replace(/\s+/g,' ').trim();
- return text===''||text==='-'||/^(?:لا توجد|لاتوجد|لا يوجد) (?:ملاحظات|ملحوظات)(?: (?:هذا الأسبوع|لهذا الأسبوع|حاليا|مسجلة|على الطالب))?(?:\s*[—-]\s*مثال تجريبي)?$/.test(text);
+ return text===''||text==='-'||text==='لم ترصد مخالفات صفية خلال الفترة'||/^(?:لا توجد|لاتوجد|لا يوجد) (?:ملاحظات|ملحوظات)(?: (?:هذا الأسبوع|لهذا الأسبوع|حاليا|مسجلة|على الطالب))?(?:\s*[—-]\s*مثال تجريبي)?$/.test(text);
 }
 export function reportCardModels(view){
  const period=view.showNotes===true;
  const rows=indices=>indices.map(index=>view.scores[index]).filter(score=>score&&present(score[1])).map(score=>[score[0],score[1]]);
  const models=view.scores.map((score,index)=>{
-  const [label,value,tone,icon]=score;
+  let [label,value,tone,icon]=score;
+  if(period&&index===1&&[2,3].every(i=>Number.isFinite(view.scores[i]?.[1])&&view.scores[i][1]>=0&&view.scores[i][1]<=(i===2?40:60)))value=Math.round(view.scores[2][1])+Math.round(view.scores[3][1]);
   const maximum=period?maxima[index]:view.isComponents?[40,60][index]:view.showAnnual?100:[40,60,100][index];
   const recorded=period?view.recorded===true:true;
   let detailRows=[],detailText='';
@@ -25,15 +26,16 @@ export function reportCardModels(view){
   if(longText)detailText=String(value??'');
   const rating=String(value??'').replace(/[\u064b-\u065f\u0670\u0640]/g,'').trim();
   const ratingTone=period&&index===0?({'ممتاز':'excellent','جيد جدا':'very-good','جيد':'good','مقبول':'acceptable','راسب':'needs-support'}[rating]||'pending'):'';
-  return {index,score:[label,value,tone,icon],maximum,progress:recorded&&maximum&&numberWithin(value,maximum)?value:null,
+  const component=period?[2,3].includes(index):view.isComponents===true||(!view.showAnnual&&index<2);
+  return {component,valueMode:component,detailComponents:period?index===1:!view.showAnnual&&!view.isComponents&&index===2,index,score:[label,value,tone,icon],maximum,progress:recorded&&maximum&&numberWithin(value,maximum)?value:null,
    narrative,longText,detailRows,detailText,ratingTone,primary:period&&index<2,
    neutral:narrative&&index===11&&noBehaviorConcern(value),interactive:detailRows.length>0||detailText.length>0};
  });
  return period?[models[1],models[0],...models.slice(2)]:models;
 }
-export function displayScore(value){
+export function displayScore(value,component=false){
  if(value===null||value===undefined||value==='')return 'لم يُرصد';
- if((typeof value==='number'||typeof value==='string'&&/^\s*\d+(?:\.\d+)?\s*$/.test(value))&&Number.isFinite(Number(value)))return String(Math.round(Number(value)));
+ if((typeof value==='number'||typeof value==='string'&&/^\s*\d+(?:\.\d+)?\s*$/.test(value))&&Number.isFinite(Number(value)))return component?Number(value).toFixed(1):String(Math.round(Number(value)));
  return String(value);
 }
 const digits=value=>String(value).replace(/[٠-٩۰-۹]/g,c=>String(c.charCodeAt(0)-(c.charCodeAt(0)<=0x669?0x660:0x6f0)));
@@ -46,7 +48,7 @@ export function createReportCard(model){
  const core=model.interactive?document.createElement('summary'):document.createElement('div');core.className='card-core';
  const title=document.createElement('h3'),text=document.createElement('span'),symbol=document.createElement('span');text.textContent=digits(label);symbol.textContent=model.neutral?'':icon;symbol.setAttribute('aria-hidden','true');title.append(text,symbol);
  const valueWrap=document.createElement('div');valueWrap.className='grade-number';
- const val=paragraph(model.narrative?String(value??''):displayScore(value),'grade-value'+(model.longText?' summary-preview':''));
+ const val=paragraph(model.narrative?String(value??''):displayScore(value,model.valueMode),'grade-value'+(model.longText?' summary-preview':''));
  val.dataset.numeric=String(typeof value==='number'&&Number.isFinite(value));valueWrap.append(val);
  if(model.progress!==null&&model.maximum){const maximum=document.createElement('span');maximum.className='grade-maximum';maximum.textContent='من '+model.maximum;valueWrap.append(maximum);}
  core.append(title,valueWrap);
@@ -54,7 +56,7 @@ export function createReportCard(model){
  if(model.interactive)core.append(toggleHint());card.append(core);
  if(model.interactive){
   const body=document.createElement('div');body.className='card-details';
-  if(model.detailRows.length){const list=document.createElement('dl');for(const [name,score]of model.detailRows){const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=digits(name);dd.textContent=displayScore(score);row.append(dt,dd);list.append(row);}body.append(list);}
+  if(model.detailRows.length){const list=document.createElement('dl');for(const [name,score]of model.detailRows){const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=digits(name);dd.textContent=displayScore(score,model.detailComponents);row.append(dt,dd);list.append(row);}body.append(list);}
   if(model.detailText)body.append(paragraph(model.detailText,'detail-copy'));
   card.append(body);
  }

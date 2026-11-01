@@ -1,18 +1,7 @@
-# بوابة نتائج المهارات الرقمية — مدرسة غرناطة
+# Granada results portal
 
-الرابط الأساسي: https://granada-results-demo.granada-results-demo.workers.dev/
-رابط أولياء الأمور: https://ithraok.github.io/granada-results-portal/
+Public frontend and redirect to the secured Cloudflare portal. Updated 2026-11-01.
 
-القالب المعتمد يحافظ على التصميم الأصلي وألوانه. قائمة «عرض النتائج» تتضمن الفصل الدراسي الأول والفصل الدراسي الثاني والنتيجة النهائية للعام الدراسي. لكل فصل: الفترة الأولى، الفترة الثانية، نهاية الفصل. الملخص السنوي يعرض متوسط نتيجتي الفصلين من 100، مع توضيح أن النتيجة تقديرية والمعتمد في نور.
+Supports the first and second assessment periods of semester one. Parent results, teacher reports, director accounts, temporary invitations and print-request tracking are served through authenticated Cloudflare endpoints. Student Excel workbooks, grades, credentials and private reports are not included in this public repository.
 
-البيانات الحقيقية المتصلة حاليًا هي ملخص الفترة الأولى للفصل الأول. الفترات والفصل الثاني غير المرصودة تبقى بانتظار الرصد، ولا تكرر درجات الفصل الأول ولا تدخل أصفار العرض في المتوسط.
-
-يوجد حساب عرض مستقل للمعلم بدرجات وهمية مكتملة للفصول والفترات كلها، ولا يتيح إدارة أو الاطلاع على نتائج الآخرين.
-
-index.html يحول إلى خدمة Cloudflare لضمان عمل المطابقة والجلسة الآمنة على المصدر نفسه. بقية الملفات نسخة المصدر العامة للقالب والشعار. لا توضع ملفات Excel أو بيانات الطلاب أو مفاتيح الخدمة في GitHub.
-
-رفع القالب لا يفعّل مزامنة OneDrive السحابية؛ تظل المزامنة الحالية عبر جهاز المعلم إلى حين إتمام تفويض Microsoft.
-
-زر «تتبّع الأثر» في نموذج المعلم يفتح بوابة مستقلة محمية باسم دخول ورمز خاص وجلسة خادم مدتها ساعة. تعرض البوابة الخاصة تحليل النتائج الحقيقية من الملفات الستة للفترة الأولى فقط. لا تُنشر بياناتها أو بيانات دخولها في GitHub، ولا تفتحها جلسة الطالب أو الحساب التجريبي. رابط الدخول الخاص: https://granada-teacher-impact.granada-results-demo.workers.dev/
-
-المتاح حاليًا في ملحق تتبّع الأثر: الفصل الأول / الفترة الأولى فقط. الفترات التالية ونهايتا الفصلين والملخص السنوي بانتظار الرصد، دون أسماء أو ترتيب أو تقديرات؛ الأصفار للعرض فقط ولا تدخل في المتوسط.
+GitHub Pages redirects to https://granada-results-demo.granada-results-demo.workers.dev/ .

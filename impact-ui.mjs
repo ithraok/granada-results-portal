@@ -1,6 +1,7 @@
 import {impactRows,summarize,ranking,groups,recommendation,impactMetrics,rating,changeBand} from './impact-model.mjs';
 const el=(tag,text,className)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n;};
 const number=v=>typeof v==='number'&&Number.isFinite(v)?new Intl.NumberFormat('en',{maximumFractionDigits:1}).format(v):'غير متاح';
+export const impactScore=(value,component=false)=>typeof value==='number'&&Number.isFinite(value)?component?value.toFixed(1):String(Math.round(value)):'غير متاح';
 const gradeName=g=>({4:'الرابع',5:'الخامس',6:'السادس'}[g]||g);
 const className=r=>`${gradeName(r.grade)} / ${r.section}`;
 function select(label,options,value){const wrap=el('label',label),s=el('select');for(const [v,t]of options){const o=el('option',t);o.value=v;s.append(o);}s.value=value;wrap.append(s);return [wrap,s];}
@@ -12,9 +13,10 @@ function table(headers,rows){
  const body=el('tbody');for(const cells of rows){const r=el('tr');for(const [index,cell] of cells.entries()){const td=el('td'),kind=column(headers[index]||'');if(kind)td.className='impact-col-'+kind;if(headers[index]?.startsWith('المجموع'))td.classList.add('impact-col-total');if(kind==='rating')td.classList.add('impact-rating-'+ratingTone(cell));if(cell instanceof Node)td.append(cell);else td.textContent=String(cell??'غير متاح');r.append(td);}body.append(r);}t.append(body);box.append(t);if(!rows.length)box.append(el('p','لا تتوفر بيانات مرصودة لهذا الاختيار.','impact-empty'));requestAnimationFrame(()=>{if(box.isConnected&&box.clientWidth)box.scrollLeft=0;});return box;
 }
 function movement(delta){const n=el('span',delta===null?'غير متاح':`${delta>0?'↑ +':delta<0?'↓ ': '↔ '}${number(delta)} نقطة`,delta>0?'impact-up':delta<0?'impact-down':'impact-flat');return n;}
+const comparisonColors={'4':'#2563eb','5':'#7c3aed','6':'#ea580c','4-1':'#2563eb','4-2':'#0891b2','5-1':'#7c3aed','5-2':'#db2777','6-1':'#ea580c','6-2':'#168447'};
 function chart(title,rows,valueLabel='متوسط الدرجة من 100',maximum=100){
  const box=el('section',undefined,'impact-chart');box.append(el('h3',title),el('p',valueLabel,'impact-muted'));
- for(const row of rows){const item=el('div',undefined,'impact-chart-row'),heading=el('div',undefined,'impact-chart-label');heading.append(el('span',row.label),el('b',row.value===null?'غير متاح':number(row.value)));const track=el('div',undefined,'impact-track'),bar=el('div',undefined,'impact-bar');bar.style.width=`${Math.max(0,Math.min(100,(row.value??0)/maximum*100))}%`;track.setAttribute('role','img');track.setAttribute('aria-label',`${row.label}: ${number(row.value)} ${valueLabel}`);track.append(bar);item.append(heading,track);box.append(item);}return box;
+ for(const row of rows){const item=el('div',undefined,'impact-chart-row'),heading=el('div',undefined,'impact-chart-label');heading.append(el('span',row.label),el('b',row.value===null?'غير متاح':number(row.value)));const track=el('div',undefined,'impact-track'),bar=el('div',undefined,'impact-bar');const tone=comparisonColors[row.key]||'#2563eb';bar.style.background='linear-gradient(90deg,'+tone+'cc,'+tone+')';item.dataset.comparisonKey=row.key||'';bar.style.width=`${Math.max(0,Math.min(100,(row.value??0)/maximum*100))}%`;track.setAttribute('role','img');track.setAttribute('aria-label',`${row.label}: ${number(row.value)} ${valueLabel}`);track.append(bar);item.append(heading,track);box.append(item);}return box;
 }
 function metric(label,value,tone=''){const n=el('div',undefined,'impact-metric '+tone);n.append(el('span',label),el('strong',number(value)));return n;}
 export function mountImpact({root,report,load,onSessionError}){
@@ -43,11 +45,11 @@ export function mountImpact({root,report,load,onSessionError}){
    const placeholders=el('div',undefined,'impact-metrics');placeholders.append(metric('نتائج مرصودة',0),metric('درجة40 — عرض فقط',0),metric('درجة60 — عرض فقط',0),metric('المجموع /100 — عرض فقط',0));content.append(placeholders);
    return;
   }
-  const sorted=ranking(rows,false,metricKey),classGroups=groups(rows,'class',metricKey),gradeGroups=groups(rows,'grade',metricKey);const scoreCells=r=>[number(r.tasks),number(r.assessment),number(r.score),r.rating||rating(r.score)];const comparisonTitle=term==='year'?'تغير الفصلين':'تغير الفترتين';const comparisonChart=(title,rows)=>chart(title,rows,`${selected.label} — من ${selected.max}`,selected.max);
+  const sorted=ranking(rows,false,metricKey),classGroups=groups(rows,'class',metricKey),gradeGroups=groups(rows,'grade',metricKey);const scoreCells=r=>[impactScore(r.tasks,true),impactScore(r.assessment,true),impactScore(r.score),r.rating||rating(r.score)];const comparisonTitle=term==='year'?'تغير الفصلين':'تغير الفترتين';const comparisonChart=(title,rows)=>chart(title,rows,`${selected.label} — من ${selected.max}`,selected.max);
   const appendRank=(list,title,tone)=>{const section=el('section',undefined,'impact-ranking '+tone);section.append(el('h4',title),table(['الترتيب','الطالب','الصف / الفصل','درجة40','درجة60','المجموع /100','التقدير العام',comparisonTitle+' — '+selected.label,'التوصية المقترحة'],list.slice(0,10).map((r,i)=>[i+1,r.name,className(r),...scoreCells(r),movement(r.delta),recommendation(r)])));content.append(section);};
   const cards=el('div',undefined,'impact-metrics');cards.append(metric('الطلاب في النطاق',summary.registered),metric('لديهم نتيجة مرصودة',summary.recorded),metric('متوسط درجة40',summary.means.tasks),metric('متوسط درجة60',summary.means.assessment),metric('متوسط المجموع /100',summary.means.score),metric('ممتاز — 90 فأعلى',summary.excellent,'positive'),metric('أقل من 70 — يحتاج متابعة',summary.support,'support'),metric('نتائج غير مكتملة',summary.missing));
   if(view==='overview'){
-   content.append(cards,comparisonChart('مقارنة متوسطات الفصول',classGroups.map(g=>({label:g.label,value:g.mean}))),comparisonChart('مقارنة متوسطات الصفوف',gradeGroups.map(g=>({label:g.label,value:g.mean}))));
+   content.append(cards,comparisonChart('مقارنة متوسطات الفصول',classGroups.map(g=>({key:g.key,label:g.label,value:g.mean}))),comparisonChart('مقارنة متوسطات الصفوف',gradeGroups.map(g=>({key:g.key,label:g.label,value:g.mean}))));
    content.append(el('p',`أفضل فصل في النطاق بحسب متوسط الدرجات المرصودة: ${classGroups.find(g=>g.recorded)?.label||'غير متاح'}. عدد من لديهم نتيجتان للمقارنة: ${summary.paired}.`,'impact-explanation'));
   }
   if(view==='students'){
@@ -55,7 +57,7 @@ export function mountImpact({root,report,load,onSessionError}){
   }
   if(view==='classes'||view==='grades'){
    const grouped=view==='classes'?classGroups:gradeGroups;
-   content.append(comparisonChart('الترتيب بحسب متوسط المؤشر المختار',grouped.map(g=>({label:g.label,value:g.mean}))),table(['النطاق','الطلاب','المرصود','متوسط40','متوسط60','المجموع /100','ممتاز','أقل من70','نتيجتان للمقارنة','متوسط تغير المؤشر'],grouped.map(g=>[g.label,g.registered,g.recorded,number(g.means.tasks),number(g.means.assessment),number(g.means.score),g.excellent,g.support,g.paired,movement(g.delta)])));
+   content.append(comparisonChart('الترتيب بحسب متوسط المؤشر المختار',grouped.map(g=>({key:g.key,label:g.label,value:g.mean}))),table(['النطاق','الطلاب','المرصود','متوسط40','متوسط60','المجموع /100','ممتاز','أقل من70','نتيجتان للمقارنة','متوسط تغير المؤشر'],grouped.map(g=>[g.label,g.registered,g.recorded,number(g.means.tasks),number(g.means.assessment),number(g.means.score),g.excellent,g.support,g.paired,movement(g.delta)])));
    if(view==='grades')for(const group of grouped){const r=rows.filter(r=>String(r.grade)===group.key);appendRank(ranking(r,false,metricKey),`العشرة الأوائل — ${group.label}`,'positive');appendRank(ranking(r,true,metricKey),`العشرة الأكثر احتياجًا للمتابعة — ${group.label}`,'support');}
   }
   if(view==='top'||view==='support'){
@@ -75,7 +77,7 @@ export function mountImpact({root,report,load,onSessionError}){
    if(paired.length){
     const cats=['تحسن كبير','تحسن متوسط','تحسن بسيط','ثبات','تراجع بسيط','تراجع متوسط','تراجع كبير'];
     content.append(chart('توزيع تغير المؤشر المختار',cats.map(label=>({label,value:paired.filter(r=>changeBand(r.changePercent)===label).length/paired.length*100})),'نسبة الطلاب ذوي البيانات الكافية %'));
-    content.append(table(['الطالب','الفصل','درجة40','درجة60','المجموع /100','التقدير العام',beforeLabel+' — من'+selected.max,afterLabel+' — من'+selected.max,'التغير — من'+selected.max,'فئة التغير'],rows.map(r=>[r.name,className(r),...scoreCells(r),number(r.baseline[metricKey]),number(r.comparison[metricKey]),movement(r.delta),changeBand(r.changePercent)||'غير متاح'])));
+    content.append(table(['الطالب','الفصل','درجة40','درجة60','المجموع /100','التقدير العام',beforeLabel+' — من'+selected.max,afterLabel+' — من'+selected.max,'التغير — من'+selected.max,'فئة التغير'],rows.map(r=>[r.name,className(r),...scoreCells(r),impactScore(r.baseline[metricKey],metricKey!=='score'),impactScore(r.comparison[metricKey],metricKey!=='score'),movement(r.delta),changeBand(r.changePercent)||'غير متاح'])));
    }else{
     content.append(el('p','تعرض هذه الصفحة مستويات الفترة المرصودة فقط. ستظهر مقارنة التحسن والتراجع بعد رصد الفترة التالية؛ لا توجد حاليًا نتيجة لاحقة للمقارنة.','impact-explanation'),table(['الطالب','الفصل','درجة40','درجة60','المجموع /100','التقدير العام'],sorted.map(r=>[r.name,className(r),...scoreCells(r)])));
    }
