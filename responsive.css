@@ -444,3 +444,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 #granada-results:is([data-period="1"],[data-period="2"]) #gr-grades>.grade[data-card-index="11"] h3{color:#b42332}
 @media(max-width:600px){#granada-results:is([data-period="1"],[data-period="2"]) #gr-grades>.grade[data-card-index="9"] .grade-value{font-size:30px}}
 @media print{#granada-results:is([data-period="1"],[data-period="2"]) #gr-grades>.grade[data-card-index="9"] .grade-value{font-size:25px!important}}
+
+
+/* Mobile and tablet readability; preserve the approved paired cards and print layout. */
+@media screen and (max-width:820px){
+ #granada-results :is(input,select,textarea){font-size:16px!important;max-width:100%;min-width:0;box-sizing:border-box}
+ #granada-results :is(button,input,select){min-height:44px}
+ #granada-results .report .actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:stretch}
+ #granada-results .report .actions>button{min-height:44px;min-width:0;width:100%;white-space:nowrap;padding:10px 8px;justify-content:center}
+ #granada-results .report .actions>#gr-impact{grid-column:1/-1;text-align:center;white-space:normal;min-height:44px;box-sizing:border-box}
+ #granada-results .report :is(.grade,.note,.student,.term-choice){min-width:0}
+ #granada-results .report :is(.grade h3,.note p,.student-meta){overflow-wrap:anywhere}
+ #granada-results .report .term-choice select{min-width:0;max-width:100%}
+}
+@media screen and (max-width:600px){#granada-results .report h2{font-size:20px;line-height:1.9;text-wrap:balance}}
