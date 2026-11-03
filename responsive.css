@@ -472,7 +472,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 @media screen and (max-width:360px){
  #granada-results #gr-grades{grid-template-columns:minmax(0,1fr)!important}
  #granada-results:is([data-period="1"],[data-period="2"]) #gr-grades>.grade[data-card-index]{grid-area:auto!important}
- #granada-results .guardian-support-row{grid-template-columns:minmax(0,1fr)!important}
+
 }
 
 /* MOBILE-PORTALS-END */
