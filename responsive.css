@@ -445,16 +445,34 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 @media(max-width:600px){#granada-results:is([data-period="1"],[data-period="2"]) #gr-grades>.grade[data-card-index="9"] .grade-value{font-size:30px}}
 @media print{#granada-results:is([data-period="1"],[data-period="2"]) #gr-grades>.grade[data-card-index="9"] .grade-value{font-size:25px!important}}
 
-
-/* Mobile and tablet readability; preserve the approved paired cards and print layout. */
-@media screen and (max-width:820px){
- #granada-results :is(input,select,textarea){font-size:16px!important;max-width:100%;min-width:0;box-sizing:border-box}
- #granada-results :is(button,input,select){min-height:44px}
+/* MOBILE-PORTALS-START */
+/* Mobile-only refinements. Desktop and print layouts retain their approved design. */
+@media screen and (max-width:760px){
+ body :is(input:not([type=checkbox]):not([type=radio]),select,textarea){font-size:16px!important;max-width:100%;min-width:0;box-sizing:border-box}
+ body :is(button,summary){min-height:44px!important;box-sizing:border-box}
  #granada-results .report .actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:stretch}
- #granada-results .report .actions>button{min-height:44px;min-width:0;width:100%;white-space:nowrap;padding:10px 8px;justify-content:center}
- #granada-results .report .actions>#gr-impact{grid-column:1/-1;text-align:center;white-space:normal;min-height:44px;box-sizing:border-box}
- #granada-results .report :is(.grade,.note,.student,.term-choice){min-width:0}
- #granada-results .report :is(.grade h3,.note p,.student-meta){overflow-wrap:anywhere}
- #granada-results .report .term-choice select{min-width:0;max-width:100%}
+ #granada-results .report .actions>:is(button,a){width:100%!important;min-width:0!important;max-width:100%;min-height:44px;height:auto!important;margin:0!important;padding:10px 8px!important;white-space:normal!important;word-break:normal;overflow-wrap:normal;font-size:14px!important;line-height:1.8;justify-content:center;text-align:center}
+ #granada-results .report .actions :is(#gr-impact,#gr-logout){grid-column:1/-1}
+ #granada-results .report .actions svg{flex-shrink:0}
+ #granada-results .initiative-contact{flex-wrap:wrap;white-space:normal!important;overflow-wrap:anywhere}
+ #granada-results dialog{box-sizing:border-box;max-width:calc(100vw - 24px)!important;max-height:90dvh;overflow-y:auto}
+ #granada-results .feedback-stars{gap:5px!important}
+ #granada-results .feedback-stars button{min-width:40px;width:40px!important;min-height:44px}
+ body:has(nav.teacher-menu) :is(.fu-box,.fu-grid,.fu-kpis,.staff-box){min-width:0}
+ body:has(nav.teacher-menu) dialog{box-sizing:border-box;max-width:calc(100vw - 24px);max-height:90dvh;overflow-y:auto}
+ .fu-check{min-height:44px}
 }
-@media screen and (max-width:600px){#granada-results .report h2{font-size:20px;line-height:1.9;text-wrap:balance}}
+@media screen and (max-width:480px){
+ #granada-results .report-header{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;align-items:start}
+ #granada-results .report-header>.vision{grid-column:1/-1;grid-row:1;justify-self:center}
+ #granada-results .report-header>div:not(.report-update){min-width:0;font-size:11px;line-height:1.9;text-align:center}
+ #granada-results .report-header>.report-update{grid-column:1/-1}
+ #granada-results .student-meta{grid-template-columns:1fr!important}
+}
+@media screen and (max-width:360px){
+ #granada-results #gr-grades{grid-template-columns:minmax(0,1fr)!important}
+ #granada-results:is([data-period="1"],[data-period="2"]) #gr-grades>.grade[data-card-index]{grid-area:auto!important}
+ #granada-results .guardian-support-row{grid-template-columns:minmax(0,1fr)!important}
+}
+
+/* MOBILE-PORTALS-END */
